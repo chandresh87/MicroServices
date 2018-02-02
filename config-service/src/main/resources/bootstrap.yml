@@ -1,0 +1,15 @@
+server:
+  port: 8888
+  
+spring:
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          #searchLocations: file:///C://Data//MicroServicesPlayGround_Repo//MicroServices//config//personService
+         
+           searchLocations: classpath:config/personService,classpath:config/organizationService
+        encrypt:
+          enabled: false 
