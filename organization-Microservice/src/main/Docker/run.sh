@@ -16,4 +16,4 @@ echo ">>>>>>>>>>>> Configuration Server has started"
 echo "********************************************************"
 echo "Starting organization Server with Configuration Service :  $CONFIGSERVER_URI";
 echo "********************************************************"
-java -Dspring.cloud.config.uri=$CONFIGSERVER_URI -Dspring.profiles.active=$PROFILE -jar /usr/local/personMicroService/organization-Microservice-0.0.1-SNAPSHOT.jar
+java -Dserver.port=$SERVER_PORT -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI -Dspring.cloud.config.uri=$CONFIGSERVER_URI -Dspring.profiles.active=$PROFILE -jar /usr/local/organizationMicroService/organization-Microservice-0.0.1-SNAPSHOT.jar

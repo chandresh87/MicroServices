@@ -9,7 +9,7 @@ spring.datasource.validationQuery: "SELECT 1"
 
 
 spring.jpa.hibernate.ddl-auto: update
-spring.datasource.url: "jdbc:mysql://10.97.238.95:3307/organizationmicroservice"
+spring.datasource.url: "jdbc:mysql://192.168.1.65:3307/organizationmicroservice"
 spring.datasource.username:  db_user
 spring.datasource.password: "{cipher}b4d96af236cc7ae0f4e39ba2f23facecc0a191392a5476b4fd14a3e0ed60e0ea"
 spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect

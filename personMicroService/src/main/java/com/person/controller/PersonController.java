@@ -7,15 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.person.config.MessageConfig;
 import com.person.entity.Person;
 import com.person.mapper.PersonMapper;
-import com.person.model.PersonModel;
+import com.person.model.PersonRequestModel;
+import com.person.model.PersonResponseModel;
 import com.person.repository.PersonRepository;
+import com.person.service.PersonService;
 
 /**
  * @author chandresh.mishra
@@ -28,20 +32,27 @@ public class PersonController {
 	private PersonMapper personMapper;
 	
 	@Autowired
-	private PersonRepository personRepository;
+	private PersonService personService;
 	
 	@Autowired 
 	private MessageConfig messageConfig;
 	
-	
-	
 	@PostMapping(path="/savePerson" ,consumes="application/json")
-	public ResponseEntity<String> savePerson(@RequestBody PersonModel personModel)
+	public ResponseEntity<String> savePerson(@RequestBody PersonRequestModel personModel)
 	{
 		Person person=personMapper.personModelToPerson(personModel);
-		personRepository.save(person);
+		System.out.println("person is " + person );
+		personService.savePerson(person);
 		ResponseEntity<String> response= new ResponseEntity<String>(messageConfig.getSuccessMessage(), HttpStatus.CREATED);
 		return response;
+	}
+	
+	@GetMapping(path="/getPerson" ,produces="application/json")
+	public PersonResponseModel getPersonDetails(@RequestParam String nino, @RequestParam int id)
+	{
+		
+		return personService.getPerson(nino, id);
+		
 	}
 
 }

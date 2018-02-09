@@ -1,3 +1,10 @@
-  
+eureka:
+  instance:
+    prefer-ip-address: true  #add ip address inplace of host name
+  client:
+    register-with-eureka: true
+    fetch-registry: true # fetches the registry information from the server and caches it locally.
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
 
 

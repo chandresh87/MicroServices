@@ -13,3 +13,5 @@ spring:
            searchLocations: classpath:config/personService,classpath:config/organizationService
         encrypt:
           enabled: false 
+  application:
+    name: configserver

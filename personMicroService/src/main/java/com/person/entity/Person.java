@@ -14,9 +14,11 @@ import javax.persistence.Id;
 public class Person {
 	
 private String name;
+
 private String nino;
-private String employerName;
+private Integer employerId;
 private Integer employmentLevel;
+
 public String getName() {
 	return name;
 }
@@ -30,18 +32,45 @@ public String getNino() {
 public void setNino(String nino) {
 	this.nino = nino;
 }
-public String getEmployerName() {
-	return employerName;
+public Integer getEmployerId() {
+	return employerId;
 }
-public void setEmployerName(String employerName) {
-	this.employerName = employerName;
+public void setEmployerId(Integer employerId) {
+	this.employerId = employerId;
 }
 public Integer getEmploymentLevel() {
 	return employmentLevel;
 }
 public void setEmploymentLevel(Integer employmentLevel) {
 	this.employmentLevel = employmentLevel;
+	
 }
+@Override
+public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((nino == null) ? 0 : nino.hashCode());
+	return result;
+}
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	Person other = (Person) obj;
+	if (nino == null) {
+		if (other.nino != null)
+			return false;
+	} else if (!nino.equals(other.nino))
+		return false;
+	return true;
+}
+
+
+
 
 
 

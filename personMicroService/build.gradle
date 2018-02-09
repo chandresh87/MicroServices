@@ -46,6 +46,8 @@ dependencies {
 	compile "org.springframework.security:spring-security-rsa"
 	compile "org.springframework.boot:spring-boot-starter-actuator"
 	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
+	//feign
+	compile('org.springframework.cloud:spring-cloud-starter-feign')
 	runtime('mysql:mysql-connector-java')
 	compile 'org.mapstruct:mapstruct-jdk8:1.1.0.Final'                       
 	apt 'org.mapstruct:mapstruct-processor:1.1.0.Final'

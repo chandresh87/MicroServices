@@ -39,7 +39,7 @@ public class OrganizationController {
 		return response;
 	}
 	
-	@GetMapping(path="/getOrganization" ,produces="application/json")
+	@GetMapping(path="/getOrganization/{id}" ,produces="application/json")
 	public ResponseEntity<OrganizationModel> getOrganization(@PathVariable Integer id)
 	{
 		OrganizationModel organizationModel=organizationMapper.organizationEntityToModel(organizationService.fetchOrganization(id));

@@ -7,12 +7,15 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'se.transmode.gradle:gradle-docker:1.2'
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
+apply plugin: 'application'
 
 group = 'com.microservicePlayground'
 version = '0.0.1-SNAPSHOT'
@@ -31,6 +34,26 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
 	compile('org.springframework.cloud:spring-cloud-starter')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+docker {
+    maintainer = 'chandresh.mishra <chandresh.mishra@accenture.com>'
+    
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+  //push = true
+  applicationName = 'eurekaservice'
+  tagVersion = '1.0'
+  dockerfile = file("${buildDir}/docker/Dockerfile")
+  doFirst {
+    copy {
+      from jar
+      into stageDir
+      from "src/main/docker/"
+      into "${buildDir}/docker"
+    }
+  }
 }
 
 dependencyManagement {
