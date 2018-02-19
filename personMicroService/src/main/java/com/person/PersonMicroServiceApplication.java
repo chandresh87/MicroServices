@@ -5,9 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.EnableMBeanExport;
 
 @ComponentScan(
 		  value = {
@@ -22,6 +21,7 @@ import org.springframework.context.annotation.EnableMBeanExport;
 @RefreshScope
 @EnableEurekaClient
 @EnableFeignClients
+@EnableHystrix
 public class PersonMicroServiceApplication {
 
 	public static void main(String[] args) {

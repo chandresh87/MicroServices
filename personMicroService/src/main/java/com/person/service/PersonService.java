@@ -1,17 +1,13 @@
-/**
- * 
- */
+
 package com.person.service;
 
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.person.dto.OrganizationDTO;
-import com.person.dto.client.OrganizationClient;
 import com.person.entity.Person;
 import com.person.mapper.PersonMapper;
 import com.person.model.PersonResponseModel;
@@ -24,11 +20,12 @@ import com.person.repository.PersonRepository;
 @Service
 public class PersonService {
 
-	@Autowired
-	private PersonRepository personRepository;
 	
 	@Autowired
-	private OrganizationClient organizationClient;
+	private OrganizationServiceData organizationServiceData;
+	
+	@Autowired
+	private PersonServiceData personServiceData;
 	
 	@Autowired
 	private PersonMapper personMapper;
@@ -36,18 +33,19 @@ public class PersonService {
 	//BO to Entity should be used but BO is not used just for simplification.
 	public void savePerson(Person person)
 	{
-		 personRepository.save(person);
+		personServiceData.savePerson(person);
 	}
 	
 	//It should return a business object in place of model. Model used just for simplification.
-	
+	//Hystrix command works on separate class files. As it works on Spring AOP
 	public PersonResponseModel getPerson(String nino,int id)
 	{
-		Person person=fetchPerson(nino);
+		//person data from database
+		Person person=personServiceData.fetchPerson(nino);
 		PersonResponseModel personResponseModel=personMapper.personToPersonResponse(person);
 		
-		ResponseEntity<OrganizationDTO> reponse= organizationClient.getOrganization(id);
-		OrganizationDTO organizationDTO=reponse.getBody();
+		//Get org data from extenal resource
+		OrganizationDTO organizationDTO=organizationServiceData.getOrganizationData(id);
 		
 		personResponseModel.setEmployerName(organizationDTO.getOrganizationName());
 		personResponseModel.setLocation(organizationDTO.getLocation());
@@ -55,9 +53,7 @@ public class PersonService {
 		
 	}
 	
-	@Transactional(readOnly = true)
-	private Person fetchPerson(String nino)
-	{
-		return personRepository.findByNino(nino);
-	}
+	
+	
+
 }

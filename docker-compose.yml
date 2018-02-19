@@ -57,3 +57,16 @@ services:
         EUREKASERVER_PORT:   "8761"
         CONFIGSERVER_PORT:   "8888"
         ENCRYPT_KEY:       "IMSYMMETRIC"
+        
+  turbineservice:
+    image: com.microservicePlayground/turbinemicroservice:1.0
+    ports:
+      - "8989:8989"
+    environment:
+        PROFILE: "default"
+        SERVER_PORT: "8989"
+        CONFIGSERVER_URI: "http://configserver:8888"
+        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+        EUREKASERVER_PORT:   "8761"
+        CONFIGSERVER_PORT:   "8888"
+        ENCRYPT_KEY:       "IMSYMMETRIC"      

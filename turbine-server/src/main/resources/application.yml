@@ -1,0 +1,10 @@
+
+server:
+  port: 8989
+
+
+turbine:
+  aggregator:
+    clusterConfig: PERSONSERVICE
+  appConfig: personservice
+
