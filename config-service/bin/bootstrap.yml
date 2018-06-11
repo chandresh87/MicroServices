@@ -6,12 +6,23 @@ spring:
     active: native
   cloud:
     config:
+      discovery:
+        enabled: true
       server:
-        native:
-          #searchLocations: file:///C://Data//MicroServicesPlayGround_Repo//MicroServices//config//personService
-         
-           searchLocations: classpath:config/personService,classpath:config/organizationService
-        encrypt:
+       native:
+          searchLocations: file:///C://Data//MicroServicesPlayGround_Repo//config-server//personService,
+                           file:///C://Data//MicroServicesPlayGround_Repo//config-server//organizationservice, 
+                           file:///C://Data//MicroServicesPlayGround_Repo//config-server//zuulservice 
+           #searchLocations: classpath:config/personService,classpath:config/organizationService,classpath:config/zuulservice
+#        git:
+#          uri: git@github.com:chandresh87/config-server.git
+#          username: chandresh87
+#          password: XXXXXXXXXX
+#          searchPaths: personservice,organizationservice,zuulservice
+#          force-pull: true   
+          
+       encrypt:
           enabled: false 
   application:
     name: configserver
+    

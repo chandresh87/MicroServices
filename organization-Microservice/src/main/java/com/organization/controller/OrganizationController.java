@@ -42,6 +42,11 @@ public class OrganizationController {
 	@GetMapping(path="/getOrganization/{id}" ,produces="application/json")
 	public ResponseEntity<OrganizationModel> getOrganization(@PathVariable Integer id)
 	{
+		//hard coding the return code to 422 for zero ID to test the feign client behaviour
+		if(id==0)
+		{
+			return new ResponseEntity("invalid organization ID", HttpStatus.UNPROCESSABLE_ENTITY);
+		}
 		OrganizationModel organizationModel=organizationMapper.organizationEntityToModel(organizationService.fetchOrganization(id));
 		ResponseEntity<OrganizationModel> response= new ResponseEntity<OrganizationModel>(organizationModel, HttpStatus.OK);
 		return response;

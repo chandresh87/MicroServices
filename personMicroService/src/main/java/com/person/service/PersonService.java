@@ -3,12 +3,15 @@ package com.person.service;
 
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.person.dto.OrganizationDTO;
 import com.person.entity.Person;
+import com.person.filter.UserContextHolder;
 import com.person.mapper.PersonMapper;
 import com.person.model.PersonResponseModel;
 import com.person.repository.PersonRepository;
@@ -20,6 +23,7 @@ import com.person.repository.PersonRepository;
 @Service
 public class PersonService {
 
+	private static final Logger logger = LoggerFactory.getLogger(PersonService.class);
 	
 	@Autowired
 	private OrganizationServiceData organizationServiceData;
@@ -40,6 +44,8 @@ public class PersonService {
 	//Hystrix command works on separate class files. As it works on Spring AOP
 	public PersonResponseModel getPerson(String nino,int id)
 	{
+		logger.debug("PersonService.getPerson  Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+		
 		//person data from database
 		Person person=personServiceData.fetchPerson(nino);
 		PersonResponseModel personResponseModel=personMapper.personToPersonResponse(person);

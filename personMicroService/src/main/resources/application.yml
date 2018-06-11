@@ -1,6 +1,6 @@
 management:
   security:
-    enabled: true
+    enabled: false
     
 eureka:
   instance:
@@ -9,3 +9,8 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8761/eureka/    
+ 
+ 
+
+
+           

@@ -37,10 +37,13 @@ ext {
 	springCloudVersion = 'Edgware.SR1'
 }
 
+configurations {
+    all*.exclude module : 'spring-boot-starter-logging'
+}
 dependencies {
 
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-web')
+	//compile('org.springframework.boot:spring-boot-starter-web')
 	// Config server
 	compile('org.springframework.cloud:spring-cloud-starter-config')
 	compile('org.springframework.cloud:spring-cloud-config-client')
@@ -49,8 +52,8 @@ dependencies {
 	compile "org.springframework.boot:spring-boot-starter-actuator"
 	//Eureka server
 	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
-	//feign
-	compile('org.springframework.cloud:spring-cloud-starter-feign')
+	//feign// changed to open feign
+	compile('org.springframework.cloud:spring-cloud-starter-openfeign')
 	
 	//Hystrix
 	compile('org.springframework.cloud:spring-cloud-starter-hystrix')
@@ -61,6 +64,18 @@ dependencies {
 	compile 'org.mapstruct:mapstruct-jdk8:1.1.0.Final'                       
 	apt 'org.mapstruct:mapstruct-processor:1.1.0.Final'
 	
+	//log4j
+	compile 'org.springframework.boot:spring-boot-starter-log4j2'
+	
+	//JMS
+	compile 'org.springframework.cloud:spring-cloud-stream'
+	compile 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+	
+	
+	//RIBBON
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-ribbon')
+	// spring Retry 
+	 compile 'org.springframework.retry:spring-retry'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

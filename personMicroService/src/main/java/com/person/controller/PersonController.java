@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.person.config.MessageConfig;
+import com.person.dto.JMSMessageQ1;
 import com.person.entity.Person;
 import com.person.mapper.PersonMapper;
 import com.person.model.PersonRequestModel;
 import com.person.model.PersonResponseModel;
+import com.person.remote.jms.JMSSourceBean;
 import com.person.repository.PersonRepository;
 import com.person.service.PersonService;
 
@@ -37,6 +39,9 @@ public class PersonController {
 	@Autowired 
 	private MessageConfig messageConfig;
 	
+	@Autowired 
+	private JMSSourceBean jmsSourceBean;
+	
 	@PostMapping(path="/savePerson" ,consumes="application/json")
 	public ResponseEntity<String> savePerson(@RequestBody PersonRequestModel personModel)
 	{
@@ -55,4 +60,11 @@ public class PersonController {
 		
 	}
 
+	@PostMapping(path="/pushEvent" ,produces="application/json",consumes="application/json")
+	public ResponseEntity<String> eventUpdate(@RequestBody JMSMessageQ1 message)
+	{
+		jmsSourceBean.pushToJMS(message);
+		ResponseEntity<String> response= new ResponseEntity<String>(" {\"message\": \"Message queued\"}", HttpStatus.CREATED);
+		return response;
+	}
 }

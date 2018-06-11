@@ -1,0 +1,11 @@
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 2500 
+hystrix.command.personservice.execution.isolation.thread.timeoutInMilliseconds: 10000 #default 1 sec
+licensingservice.ribbon.ReadTimeout: 10000 #default 5 sec
+zuul.debug.request: true
+
+zuul:
+  ignored-services: '*'
+  prefix:  /api
+  routes:
+      personservice: /personservice/**
+      organizationservice:  /orgservice/**

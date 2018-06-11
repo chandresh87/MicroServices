@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+	<Properties>
+		<Property name="basePath">C:\\Users\\chandresh.mishra\\PersonSerice_Logs 
+		</Property>
+	</Properties>
+
+	<Appenders>
+		<RollingFile name="fileLogger" fileName="${basePath}/PersonService_app-info.log"
+			filePattern="${basePath}/drools_app-info-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingFile>
+
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+		</Console>
+	</Appenders>
+
+ <Loggers>
+		<Logger name="uk.gov.hmrc.itmp.service.common.rules.api" level="trace" additivity="true">
+			<appender-ref ref="fileLogger" level="info" />
+		</Logger> -->
+		
+		 <logger name="org.springframework.core.env.StandardEnvironment">
+           <appender-ref ref="fileLogger" level="error" />
+        </logger>
+        
+		<Root level="debug" additivity="false">
+			<appender-ref ref="fileLogger" />
+		</Root>
+		
+	</Loggers>
+
+	<category name="org.drools">
+		<priority value="info" />
+	</category>
+</Configuration>
