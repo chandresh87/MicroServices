@@ -2,7 +2,7 @@
 
 buildscript {
 	ext {
-		springBootVersion = '1.5.9.RELEASE'
+		springBootVersion = '1.5.12.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -34,7 +34,7 @@ repositories {
 
 
 ext {
-	springCloudVersion = 'Edgware.SR1'
+	springCloudVersion = 'Edgware.SR3'
 }
 
 configurations {
@@ -77,6 +77,15 @@ dependencies {
 	// spring Retry 
 	 compile 'org.springframework.retry:spring-retry'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	
+	//OAuth 2
+	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+	compile "org.springframework.security:spring-security-jwt"
+	compile "org.springframework.cloud:spring-cloud-security"
+	
+	// https://mvnrepository.com/artifact/commons-io/commons-io
+compile group: 'commons-io', name: 'commons-io', version: '2.6'
+	
 }
 
 docker {

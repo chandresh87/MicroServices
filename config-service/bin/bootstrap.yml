@@ -22,7 +22,7 @@ spring:
 #          force-pull: true   
           
        encrypt:
-          enabled: false 
+            enabled: false 
   application:
     name: configserver
     

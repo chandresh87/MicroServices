@@ -1,6 +1,6 @@
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 2500 
-hystrix.command.personservice.execution.isolation.thread.timeoutInMilliseconds: 10000 #default 1 sec
-licensingservice.ribbon.ReadTimeout: 10000 #default 5 sec
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 50000 
+hystrix.command.personservice.execution.isolation.thread.timeoutInMilliseconds: 50000 #default 1 sec
+licensingservice.ribbon.ReadTimeout: 50000 #default 5 sec
 zuul.debug.request: true
 
 zuul:
@@ -9,3 +9,38 @@ zuul:
   routes:
       personservice: /personservice/**
       organizationservice:  /orgservice/**
+  sensitiveHeaders: Cookie,Set-Cookie    
+
+
+server:
+  port: 5555
+
+  #Setting logging levels
+logging:
+    level:
+      com.netflix: WARN
+      org.springframework.web: WARN
+
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+        
+management.security.enabled: false      
+
+security:
+  oauth2:
+    client:
+      clientId: ITMP
+      clientSecret: ITMP
+      accessTokenUri: http://localhost:8901/oauth/token
+      #userAuthorizationUri: https://github.com/login/oauth/authorize
+      clientAuthenticationScheme: form
+    #resource:
+      #userInfoUri: https://api.github.com/user
+      #preferTokenInfo: false

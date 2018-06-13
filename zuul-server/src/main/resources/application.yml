@@ -23,9 +23,9 @@ management.security.enabled: false
 #  debug:
 #    request: true
 #
-zuul:
-  ignored-services: '*'
-  prefix:  /api
-  routes:
-      personservice: /personservice/**
-      organizationservice:  /orgservice/**
+#zuul:
+#  ignored-services: '*'
+#  prefix:  /api
+#  routes:
+#      personservice: /personservice/**
+#      organizationservice:  /orgservice/**

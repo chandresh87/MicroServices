@@ -29,8 +29,8 @@ public class OrganizationService {
 	
 	public Organization fetchOrganization(Integer id)
 	{
-		//randomlyRunLong(); //sleep for 3rd call
-		sleep();  //sleep for every call
+		randomlyRunLong(); //sleep for 3rd call
+		//sleep();  //sleep for every call
 		return repository.findById(id);
 	}
 	//Test slow service from organisation side
