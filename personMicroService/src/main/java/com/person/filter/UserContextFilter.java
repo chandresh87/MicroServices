@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author chandresh.mishra
  *
  */
-@Component
+//@Component
 public class UserContextFilter  implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(UserContextFilter.class);
 

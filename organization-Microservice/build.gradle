@@ -54,6 +54,9 @@ dependencies {
 	apt 'org.mapstruct:mapstruct-processor:1.1.0.Final'
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	
+	//Sleuth
+compile "org.springframework.cloud:spring-cloud-starter-sleuth"
 }
 
 docker {

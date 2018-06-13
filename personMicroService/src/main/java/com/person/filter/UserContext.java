@@ -2,7 +2,7 @@ package com.person.filter;
 
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class UserContext {
     public static final String CORRELATION_ID = "correlation-id";
     public static final String AUTH_TOKEN     = "auth-token";

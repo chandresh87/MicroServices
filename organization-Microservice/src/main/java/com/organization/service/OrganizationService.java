@@ -5,6 +5,8 @@ package com.organization.service;
 
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import com.organization.repository.OrganizationRepository;
 @Service
 public class OrganizationService {
 
+	private static final Logger logger = LoggerFactory.getLogger(OrganizationService.class);
+	
 	@Autowired
 	private OrganizationRepository repository;
 	
@@ -29,6 +33,8 @@ public class OrganizationService {
 	
 	public Organization fetchOrganization(Integer id)
 	{
+		logger.debug("Entering the fetchOrganization() method for id {} ",id);
+		
 		randomlyRunLong(); //sleep for 3rd call
 		//sleep();  //sleep for every call
 		return repository.findById(id);

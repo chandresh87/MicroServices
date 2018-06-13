@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 		    "com.person.repository",
 		    "com.person.config",
 		    "com.person.service",
-		    "com.person.filter",
+		    //"com.person.filter",
 		    "com.person.hystrix",
 		    " com.person.remote.jms"
 		    
