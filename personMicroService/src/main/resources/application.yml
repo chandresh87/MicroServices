@@ -4,7 +4,7 @@ management:
     
 eureka:
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: true # Register the IP of the service rather than the host name. preffered for the docker
   client:
     register-with-eureka: true
     service-url:
