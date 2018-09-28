@@ -13,7 +13,7 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class Organization {
+public class OrganizationEntity {
 
 	@Id  @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;

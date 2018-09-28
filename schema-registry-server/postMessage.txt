@@ -1,0 +1,10 @@
+{
+	"subject": "OrganizationDTO",
+	"format": "avro",
+	"version": 1,
+	"definition": "{\"type\" : \"record\", \"name\": \"Organization\", \"namespace\":\"com.organization.dto\",\"fields\": [{\"name\": \"id\",\"type\": \"int\"}, {\"name\" : \"organizationName\",\"type\" : \"string\"}, {\"name\" : \"location\",\"type\": \"string\"}]}"
+  
+
+}
+
+Get :http://localhost:7000/OrganizationDTO/avro/v1

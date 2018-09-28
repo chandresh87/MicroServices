@@ -9,6 +9,7 @@ package com.person.dto;
  */
 public class OrganizationDTO {
 	
+	private Integer id;
 	private String organizationName;
 	private String location;
 	/**
@@ -34,6 +35,12 @@ public class OrganizationDTO {
 	 */
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	

@@ -3,6 +3,7 @@
  */
 package com.person.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -16,7 +17,9 @@ public class Person {
 private String name;
 
 private String nino;
+
 private Integer employerId;
+
 private Integer employmentLevel;
 
 public String getName() {
@@ -32,12 +35,14 @@ public String getNino() {
 public void setNino(String nino) {
 	this.nino = nino;
 }
+@Column(name="employer_id")
 public Integer getEmployerId() {
 	return employerId;
 }
 public void setEmployerId(Integer employerId) {
 	this.employerId = employerId;
 }
+@Column(name="employment_level")
 public Integer getEmploymentLevel() {
 	return employmentLevel;
 }

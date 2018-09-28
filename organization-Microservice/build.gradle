@@ -1,13 +1,15 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.10.RELEASE'
+		springBootVersion = '1.5.12.RELEASE'
 	}
 	repositories {
 		mavenCentral()
+		jcenter()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath 'se.transmode.gradle:gradle-docker:1.2'
+		 classpath "com.commercehub.gradle.plugin:gradle-avro-plugin:0.9.1"
 	}
 }
 
@@ -20,6 +22,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
 apply plugin: 'application'
+apply plugin: "com.commercehub.gradle.plugin.avro"
 
 group = 'com.microservicePlayground'
 version = '0.0.1-SNAPSHOT'
@@ -31,7 +34,23 @@ repositories {
 
 
 ext {
-	springCloudVersion = 'Edgware.SR1'
+	springCloudVersion = 'Edgware.SR3'
+}
+
+sourceSets {
+    mapStructGenerated {
+        java.srcDir "${buildDir}/generated/source/apt/main"
+    }
+    main {
+        runtimeClasspath += sourceSets.mapStructGenerated.output
+    }
+}
+
+task generateAvro(type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
+    source("src/main/resources/avro")
+    outputDir = file("${buildDir}/generated/source/apt/main")
+    fieldVisibility = "PRIVATE"
+    outputCharacterEncoding = "UTF-8"
 }
 
 dependencies {
@@ -57,6 +76,14 @@ dependencies {
 	
 	//Sleuth
 compile "org.springframework.cloud:spring-cloud-starter-sleuth"
+
+//Spring cloud Stream JMS
+	compile 'org.springframework.cloud:spring-cloud-stream'
+	compile 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+	compile('org.springframework.cloud:spring-cloud-stream-schema')
+	
+	//spring cloud bus for config refresh
+compile  "org.springframework.cloud:spring-cloud-starter-bus-amqp"
 }
 
 docker {

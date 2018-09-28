@@ -5,14 +5,14 @@ package com.organization.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.organization.entity.Organization;
+import com.organization.entity.OrganizationEntity;
 
 /**
  * @author chandresh.mishra
  *
  */
-public interface OrganizationRepository extends JpaRepository<Organization, Integer>{
+public interface OrganizationRepository extends JpaRepository<OrganizationEntity, Integer>{
 
-	Organization findById(Integer id);
+	OrganizationEntity findById(Integer id);
 	
 }

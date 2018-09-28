@@ -17,6 +17,7 @@ import com.person.config.HytrixConfig;
 import com.person.dto.OrganizationDTO;
 import com.person.dto.client.OrganizationClient;
 import com.person.filter.UserContextHolder;
+import com.person.repository.OrganizationRedisRepository;
 
 /**
  * @author chandresh.mishra
@@ -35,6 +36,9 @@ public class OrganizationServiceData {
 	@Autowired
 	private OrganizationClient organizationClient;
 	
+	 @Autowired
+	 private  OrganizationRedisRepository orgRedisRepo;
+	
 	@Autowired
 	private HytrixConfig hytrixConfig;
 	
@@ -51,13 +55,24 @@ public class OrganizationServiceData {
             @HystrixProperty(name="circuitBreaker.sleepWindowInMilliseconds", value="7000"),
             @HystrixProperty(name="metrics.rollingStats.timeInMilliseconds", value="15000"),
             @HystrixProperty(name="metrics.rollingStats.numBuckets", value="5")})*/
-	public OrganizationDTO getOrganizationData(int OrganizationId)
+	public OrganizationDTO getOrganizationData(int organizationId)
 	{
+		OrganizationDTO organizationDTO=null;
 		logger.debug("OrganizationServiceData.getOrganizationData  Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
 		
 		randomlyRunLong();  // Testing circuit breaker
-		ResponseEntity<OrganizationDTO> reponse= organizationClient.getOrganization(OrganizationId);
-		OrganizationDTO organizationDTO=reponse.getBody();
+		
+		//Get the value from the redis
+		organizationDTO=orgRedisRepo.findOrganization(organizationId);
+		
+		if(organizationDTO==null)
+		{
+			ResponseEntity<OrganizationDTO> reponse= organizationClient.getOrganization(organizationId);
+			 organizationDTO=reponse.getBody();
+			 //saving data in redis
+			 orgRedisRepo.saveOrganization(organizationDTO);
+		}
+		
 		return organizationDTO;
 	}
 	

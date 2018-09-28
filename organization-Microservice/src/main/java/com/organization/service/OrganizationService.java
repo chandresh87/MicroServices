@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.organization.entity.Organization;
+import com.organization.entity.OrganizationEntity;
 import com.organization.repository.OrganizationRepository;
 
 /**
@@ -25,13 +25,19 @@ public class OrganizationService {
 	@Autowired
 	private OrganizationRepository repository;
 	
-	public Organization saveOrganization(Organization organization)
+	public OrganizationEntity saveOrganization(OrganizationEntity organization)
 	{
 		return repository.save(organization);
 		
 	}
 	
-	public Organization fetchOrganization(Integer id)
+	public OrganizationEntity updateOrganization(OrganizationEntity organization)
+	{
+		return repository.save(organization);
+		
+	}
+	
+	public OrganizationEntity fetchOrganization(Integer id)
 	{
 		logger.debug("Entering the fetchOrganization() method for id {} ",id);
 		

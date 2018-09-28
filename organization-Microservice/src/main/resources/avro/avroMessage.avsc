@@ -1,0 +1,15 @@
+{"type" : "record", 
+ "name": "Organization",
+ "namespace":"com.organization.dto",
+ "fields": [
+ {"name": "id","type": "int"}, 
+ {"name" : "organizationName","type" : "string"},
+ {"name" : "location","type": "string"},
+ {"name" : "messageDateTime",
+ "type" : {
+      "type" : "long",
+      "logicalType" : "timestamp-millis"
+    }
+ }
+ ]
+ }

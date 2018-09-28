@@ -37,8 +37,18 @@ ext {
 	springCloudVersion = 'Edgware.SR3'
 }
 
+sourceSets {
+    mapStructGenerated {
+        java.srcDir "${buildDir}/generated/source/apt/main"
+    }
+    main {
+        runtimeClasspath += sourceSets.mapStructGenerated.output
+    }
+}
+
 configurations {
-    all*.exclude module : 'spring-boot-starter-logging'
+   // all*.exclude module : 'spring-boot-starter-logging'
+   compile.exclude group: 'org.hibernate', module: 'hibernate-entitymanager'
 }
 dependencies {
 
@@ -60,12 +70,14 @@ dependencies {
 		
 	//Mysql
 	runtime('mysql:mysql-connector-java')
+	compile 'org.hibernate:hibernate-core:5.2.10.Final'
+	compile 'com.zaxxer:HikariCP'
 	//MapStruct
 	compile 'org.mapstruct:mapstruct-jdk8:1.1.0.Final'                       
 	apt 'org.mapstruct:mapstruct-processor:1.1.0.Final'
 	
 	//log4j
-	compile 'org.springframework.boot:spring-boot-starter-log4j2'
+	//compile 'org.springframework.boot:spring-boot-starter-log4j2'
 	
 	//JMS
 	compile 'org.springframework.cloud:spring-cloud-stream'
@@ -88,7 +100,14 @@ compile group: 'commons-io', name: 'commons-io', version: '2.6'
 
 //Sleuth
 compile "org.springframework.cloud:spring-cloud-starter-sleuth"
-	
+
+    
+compile "org.springframework.data:spring-data-redis"
+compile "redis.clients:jedis:2.9.0"
+
+//spring cloud bus for config refresh
+compile  "org.springframework.cloud:spring-cloud-starter-bus-amqp"
+
 }
 
 docker {
