@@ -6,7 +6,7 @@ package com.organization.publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
@@ -19,15 +19,16 @@ import com.organization.dto.OrganizationDTO;
  *
  */
 @Component
+@EnableBinding(OrganizationChannel.class)
 public class QueuePublisher {
 	
 
-    private Source source;
+    private OrganizationChannel source;
 
     private static final Logger logger = LoggerFactory.getLogger(QueuePublisher.class);
 
     @Autowired
-    public QueuePublisher(Source source){
+    public QueuePublisher(OrganizationChannel source){
         this.source = source;
     }
 
@@ -35,7 +36,7 @@ public class QueuePublisher {
        logger.debug("Sending  message {} for Organization Id: {}", organizationDTO.getId());
         
 
-        source.output().send(MessageBuilder.withPayload(organizationDTO).build());
+        source.orgs().send(MessageBuilder.withPayload(organizationDTO).build());
     }
 
 

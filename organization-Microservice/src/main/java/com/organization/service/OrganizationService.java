@@ -43,7 +43,7 @@ public class OrganizationService {
 		
 		randomlyRunLong(); //sleep for 3rd call
 		//sleep();  //sleep for every call
-		return repository.findById(id);
+		return repository.findById(id).get(); // should not call get directly.
 	}
 	//Test slow service from organisation side
 	

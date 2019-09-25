@@ -5,7 +5,8 @@ eureka:
     register-with-eureka: true
     fetch-registry: true # fetches the registry information from the server and caches it locally.
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://${discovery.user-name}:${discovery.password}@localhost:8761/eureka/
+      #http://localhost:8761/eureka/   
 
 
 spring:
@@ -15,3 +16,7 @@ spring:
     username: guest
     password: guest
     virtual-host: /
+    
+discovery:
+  user-name: eureka-user
+  password: eureka-pass

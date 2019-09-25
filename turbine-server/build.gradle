@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.10.RELEASE'
+		springBootVersion = '2.1.7.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -11,12 +11,16 @@ buildscript {
 	}
 }
 
+plugins {
+	id 'io.spring.dependency-management' version '1.0.7.RELEASE'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
-apply plugin: 'application'
-
+//apply plugin: 'application'
+//mainClassName = 'com.turbine.TurbineServerApplication'
 group = 'com.microservicePlayground'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -27,17 +31,18 @@ repositories {
 
 
 ext {
-	springCloudVersion = 'Edgware.SR2'
+	set('springCloudVersion', "Greenwich.SR2")
 }
 
 dependencies {
   
     
-	compile('org.springframework.cloud:spring-cloud-starter-eureka')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
 	//Hystrix dashboard
-	compile('org.springframework.cloud:spring-cloud-starter-hystrix-dashboard')
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard'
 	//Turbine
-	compile('org.springframework.cloud:spring-cloud-starter-turbine')
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-turbine'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-turbine-stream'
 	
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')

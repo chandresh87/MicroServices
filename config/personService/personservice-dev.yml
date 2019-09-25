@@ -1,16 +1,105 @@
 tracer.property: "I AM THE Dev"
-success.message: Gongo!! Data saved succesfully.
+success.message: Data saved succesfully in db.
+
+#Database property
 spring.jpa.database: "mysql"
 spring.datasource.platform: "mysql"
-spring.jpa.show-sql: "true"
-
-spring.datasource.testWhileIdle: "true"
+spring.datasource.testWhileIdle: true
 spring.datasource.validationQuery: "SELECT 1"
-
-
-spring.jpa.hibernate.ddl-auto: update
-spring.datasource.url: "jdbc:mysql://10.97.238.95:3307/personMicroService"
+spring.jpa.hibernate.ddl-auto: "update"
+spring.jpa.show-sql: true
+spring.jpa.format_sql: true
+spring.jpa.generate-ddl: true
+#spring.datasource.url: "jdbc:mysql://10.97.238.144:3307/personMicroService"  
+spring.datasource.url: "jdbc:mysql://192.168.1.3:3307/personMicroService"  
 spring.datasource.username:  db_user
-spring.datasource.password: "{cipher}b4d96af236cc7ae0f4e39ba2f23facecc0a191392a5476b4fd14a3e0ed60e0ea"
-spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
-spring.database.driverClassName: com.mysql.jdbc.Driver
+#spring.datasource.password: "{cipher}b4d96af236cc7ae0f4e39ba2f23facecc0a191392a5476b4fd14a3e0ed60e0ea"
+spring.datasource.password: "db_user"
+spring.jpa.properties.hibernate.dialect: "org.hibernate.dialect.MySQL5InnoDBDialect"
+spring.database.driverClassName: "com.mysql.jdbc.Driver"
+
+#Redis 
+spring.redis.host: localhost
+spring.redis.port: 6379
+
+##Hystrix property
+#hystrix.command.searchAggregation.execution.isolation.thread.timeoutInMilliseconds: 1
+#hystrix.command.searchAggregation.circuitBreaker.errorThresholdPercentage: 10
+#hystrix.command.queryExplain.circuitBreaker.errorThresholdPercentage: 10
+#hystrix.command.default.execution.timeout.enabled: true
+#
+##
+#minimum no of request that must be processed with in the rolloing windows
+hystrix.circuitBreaker.requestVolumeThreshold: 4
+#The percentage of failures that must occur within the rolling window before the circuit breaker is tripped. 
+hystrix.circuitBreaker.errorThresholdPercentage: 50
+#The number of milliseconds Hystrix will wait before trying a service call after the circuit breaker has been tripped.
+hystrix.circuitBreaker.sleepWindowInMilliseconds: 7000
+#The number of milliseconds Hystrix will collect and monitor statistics about service calls within a window.
+hystrix.metrics.rollingStats.timeInMilliseconds: 15000
+#The number of metrics buckets Hystrix will maintain within its monitoring window.
+hystrix.metrics.rollingStats.numBuckets: 5
+#hystrix timeout
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 31000
+
+spring: 
+   cloud:    
+      stream:
+        bindings:
+          input:
+            destination: inboundOrgChanges
+            binder: local_rabbit
+            content-type: application/json
+            group: personservice
+        binders:
+          local_rabbit:
+            type: rabbit
+            environment:
+              spring:
+                rabbitmq:
+                  host: localhost
+                  port: 5672
+                  username: guest
+                  password: guest
+                  virtual-host: /
+
+           
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "bus-refresh,bus-env"
+       
+feign:
+    hystrix:
+        enabled: true
+        
+hystrix.shareSecurityContext: true
+                
+organizationService:
+  ribbon:
+    # Max number of retries on the same server (excluding the first try)
+    MaxAutoRetries: 3
+
+    # Max number of next servers to retry (excluding the first server)
+    MaxAutoRetriesNextServer: 0
+
+    # Whether all operations can be retried for this client
+    OkToRetryOnAllOperations: true
+
+    # Interval to refresh the server list from the source
+    #ServerListRefreshInterval: 2000
+
+    # Connect timeout used by Apache HttpClient
+    ConnectTimeout: 10000
+
+    # Read timeout used by Apache HttpClient# After x amount of time new request would be sent
+    ReadTimeout: 1000
+                   
+#Setting the logging levels for the service
+
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.thoughtmechanix: DEBUG

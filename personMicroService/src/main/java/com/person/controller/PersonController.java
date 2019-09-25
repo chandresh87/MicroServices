@@ -28,6 +28,7 @@ import com.person.service.PersonService;
  *
  */
 @RestController
+@RefreshScope
 public class PersonController {
 	
 	@Autowired
@@ -39,7 +40,7 @@ public class PersonController {
 	@Autowired 
 	private MessageConfig messageConfig;
 	
-	@Autowired 
+	//@Autowired 
 	private JMSSourceBean jmsSourceBean;
 	
 	@PostMapping(path="/savePerson" ,consumes="application/json")

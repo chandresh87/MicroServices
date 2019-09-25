@@ -12,13 +12,13 @@ import com.person.dto.JMSMessageQ1;
  * @author chandresh.mishra
  *
  */
-@Component
+//@Component
 public class JMSSourceBean {
 
 	
 	private Source source;
 	
-	@Autowired
+	//@Autowired
 	public JMSSourceBean(Source source){
 	this.source = source;
 	}

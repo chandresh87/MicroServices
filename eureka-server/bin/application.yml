@@ -3,7 +3,7 @@ server:
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: false # Don’t register with Eureka service.
+    fetch-registry: false # Don’t cache registry information locally.
   server:
-    wait-time-in-ms-when-sync-empty: 5  
+    wait-time-in-ms-when-sync-empty: 5   #Initial time to wait before server takes requests

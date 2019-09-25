@@ -9,7 +9,7 @@ package com.organization.model;
  */
 public class OrganizationModel {
 
-	
+	private Integer id;
 	private String organizationName;
 	private String location;
 	
@@ -24,6 +24,12 @@ public class OrganizationModel {
 	}
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

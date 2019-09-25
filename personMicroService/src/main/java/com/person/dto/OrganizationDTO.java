@@ -3,11 +3,15 @@
  */
 package com.person.dto;
 
+import java.io.Serializable;
+
 /**
  * @author chandresh.mishra
  *
  */
-public class OrganizationDTO {
+public class OrganizationDTO implements Serializable{
+	
+	private static final long serialVersionUID = -3958163659593870535L;
 	
 	private Integer id;
 	private String organizationName;
@@ -43,6 +47,10 @@ public class OrganizationDTO {
 		this.id = id;
 	}
 
+	@Override
+	public String toString() {
+		return "OrganizationDTO [id=" + id + ", organizationName=" + organizationName + ", location=" + location + "]";
+	}
 	
 
 }

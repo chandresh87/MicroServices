@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.12.RELEASE'
+		springBootVersion = '2.1.7.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -15,13 +15,15 @@ buildscript {
 
 plugins {
 	id 'net.ltgt.apt' version '0.10'
+	id 'io.spring.dependency-management' version '1.0.7.RELEASE'
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
-apply plugin: 'application'
+//apply plugin: 'application'
+//mainClassName = 'com.organization.OrganizationMicroserviceApplication'
 apply plugin: "com.commercehub.gradle.plugin.avro"
 
 group = 'com.microservicePlayground'
@@ -34,16 +36,13 @@ repositories {
 
 
 ext {
-	springCloudVersion = 'Edgware.SR3'
+	set('springCloudVersion', "Greenwich.SR2")
 }
 
-sourceSets {
-    mapStructGenerated {
-        java.srcDir "${buildDir}/generated/source/apt/main"
-    }
-    main {
-        runtimeClasspath += sourceSets.mapStructGenerated.output
-    }
+compileJava {
+    options.annotationProcessorPath = configurations.annotationProcessor
+    options.compilerArgs << "-Amapstruct.defaultComponentModel=spring" 
+    options.setAnnotationProcessorGeneratedSourcesDirectory( file("${buildDir}/generated/source/apt/main"))
 }
 
 task generateAvro(type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
@@ -55,7 +54,7 @@ task generateAvro(type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask)
 
 dependencies {
 // Eureka
-	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
 	
 	compile('org.springframework.cloud:spring-cloud-starter-config')
 	compile('org.springframework.cloud:spring-cloud-starter')
@@ -69,25 +68,31 @@ dependencies {
 	
 	runtime('mysql:mysql-connector-java')
 	//Mapper
-	compile 'org.mapstruct:mapstruct-jdk8:1.1.0.Final'                       
-	apt 'org.mapstruct:mapstruct-processor:1.1.0.Final'
+     annotationProcessor  group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.3.0.Final'
+     implementation "org.mapstruct:mapstruct:1.3.0.Final"
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	
 	//Sleuth
-compile "org.springframework.cloud:spring-cloud-starter-sleuth"
+	compile "org.springframework.cloud:spring-cloud-starter-sleuth"
 
-//Spring cloud Stream JMS
+	//Spring cloud Stream JMS
 	compile 'org.springframework.cloud:spring-cloud-stream'
 	compile 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
 	compile('org.springframework.cloud:spring-cloud-stream-schema')
 	
 	//spring cloud bus for config refresh
-compile  "org.springframework.cloud:spring-cloud-starter-bus-amqp"
+	compile  "org.springframework.cloud:spring-cloud-starter-bus-amqp"
+	
+	//OAuth 2
+	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+	compile "org.springframework.security:spring-security-jwt"
+	compile "org.springframework.cloud:spring-cloud-security"
+	compile group: 'commons-io', name: 'commons-io', version: '2.6'
 }
 
 docker {
-    maintainer = 'chandresh.mishra <chandresh.mishra@accenture.com>'
+    maintainer = 'chandresh.mishra <chandresh87@gmail.com>'
     
 }
 

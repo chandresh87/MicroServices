@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.12.RELEASE'
+		springBootVersion = '2.1.7.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -8,6 +8,10 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
+}
+
+plugins {
+	id 'io.spring.dependency-management' version '1.0.7.RELEASE'
 }
 
 apply plugin: 'java'
@@ -24,14 +28,14 @@ repositories {
 
 
 ext {
-	springCloudVersion = 'Edgware.SR3'
+	set('springCloudVersion', "Greenwich.SR2")
 }
 
 dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-zuul')
 	compileOnly('org.projectlombok:lombok')
 	compile "org.springframework.cloud:spring-cloud-starter-zuul"
-	compile "org.springframework.cloud:spring-cloud-starter-eureka"
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
 	compile "org.springframework.cloud:spring-cloud-starter-config"
 	compile "org.springframework.cloud:spring-cloud-config-client"
 	

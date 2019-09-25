@@ -9,10 +9,10 @@ spring:
       discovery:
         enabled: false
       server:
-        native:
-          searchLocations: file:///C://Data//MicroServicesPlayGround_Repo//config-server//personService,
-                           file:///C://Data//MicroServicesPlayGround_Repo//config-server//organizationservice, 
-                           file:///C://Data//MicroServicesPlayGround_Repo//config-server//zuulservice 
+        native:   
+          searchLocations: file:///D://Data//Study//MicroServices//config//personService,
+                           file:///D://Data//Study//MicroServices//config//organizationservice, 
+                           file:///D://Data//Study//MicroServices//config//zuulservice 
           #searchLocations: classpath:config/personService,classpath:config/organizationService,classpath:config/zuulservice
         #git:
           #uri: git@github.com:chandresh87/config-server.git
@@ -30,3 +30,13 @@ spring:
   application:
     name: configserver
     
+  security:
+    user:
+      name: config-user
+      password: config-pass
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh,bus-env"

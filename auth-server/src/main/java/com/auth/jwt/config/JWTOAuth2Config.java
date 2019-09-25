@@ -1,6 +1,7 @@
 package com.auth.jwt.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,9 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 
@@ -54,8 +58,13 @@ public class JWTOAuth2Config extends AuthorizationServerConfigurerAdapter {
    
         clients.inMemory()
                 .withClient("ITMP")
-                .secret("ITMP")
+                .secret(passwordEncoder().encode("ITMP"))
                 .authorizedGrantTypes("refresh_token", "password", "client_credentials")
                 .scopes("webclient", "mobileclient");
+    }
+    
+   
+    public PasswordEncoder passwordEncoder() {
+        return new  BCryptPasswordEncoder();
     }
 }

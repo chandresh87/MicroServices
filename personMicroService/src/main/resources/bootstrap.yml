@@ -7,3 +7,8 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+      username: config-user
+      password: config-pass
+    bus:
+      id: ${spring.application.name:application}:${spring.profiles.active}:${vcap.application.instance_index:${spring.application.index:${local.server.port:${server.port:0}}}}:${vcap.application.instance_id:${random.value}}
+      

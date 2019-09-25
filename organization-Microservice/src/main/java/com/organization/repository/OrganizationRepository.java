@@ -3,6 +3,8 @@
  */
 package com.organization.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.organization.entity.OrganizationEntity;
@@ -13,6 +15,6 @@ import com.organization.entity.OrganizationEntity;
  */
 public interface OrganizationRepository extends JpaRepository<OrganizationEntity, Integer>{
 
-	OrganizationEntity findById(Integer id);
+	Optional<OrganizationEntity> findById(Integer id);
 	
 }

@@ -12,6 +12,11 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
+/**
+ * This class is responsible for telling the auth server how to generate the JWT token and sign it
+ * @author chandresh
+ *
+ */
 @Configuration
 public class JWTTokenStoreConfig {
 

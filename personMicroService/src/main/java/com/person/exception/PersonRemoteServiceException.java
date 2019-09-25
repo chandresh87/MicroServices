@@ -9,7 +9,7 @@ public class PersonRemoteServiceException extends RuntimeException {
 
   private static final long serialVersionUID = -1L;
 
-  private final String code;
+  private final int code;
 
   /**
    * Constructs remote service exception with code, message and cause.
@@ -18,7 +18,7 @@ public class PersonRemoteServiceException extends RuntimeException {
    * @param message
    * @param rootCause
    */
-  public PersonRemoteServiceException(String code, String message, Throwable cause) {
+  public PersonRemoteServiceException(int code, String message, Throwable cause) {
     super(message, cause);
     this.code = code;
   }
@@ -31,10 +31,15 @@ public class PersonRemoteServiceException extends RuntimeException {
    */
   public PersonRemoteServiceException(String message, Throwable cause) {
     super(message, cause);
-    this.code = "";
+    this.code=500;
   }
 
-  /** Returns a string consisting of the name, code, message and cause for this exception. */
+  public PersonRemoteServiceException(int code, String reason) {
+	    super(reason);
+	    this.code =code;
+  }
+
+/** Returns a string consisting of the name, code, message and cause for this exception. */
   @Override
   public String toString() {
     StringBuilder str = new StringBuilder();

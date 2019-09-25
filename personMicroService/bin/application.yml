@@ -4,11 +4,12 @@ management:
     
 eureka:
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: true # Register the IP of the service rather than the host name. preffered for the docker
   client:
-    register-with-eureka: true
+    register-with-eureka: true # Trigger to tell the service to register itself with Eureka
+    fetchRegistry: true # Pull down a local copy of the registry
     service-url:
-      defaultZone: http://localhost:8761/eureka/    
+      defaultZone: http://localhost:8761/eureka/     #Location of the Eureka Service
  
  
 

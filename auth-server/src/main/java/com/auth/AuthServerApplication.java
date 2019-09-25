@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.auth.jwt.config.JWTOAuth2Config;
 import com.auth.jwt.config.WebSecurityConfigurer;
 
-@SpringBootApplication
+@SpringBootApplication( exclude = {
+		  SecurityAutoConfiguration.class		
+})
 @EnableAuthorizationServer
 @RestController
-@EnableResourceServer
+//@EnableResourceServer
 @Import(
 		  value = {
 		    JWTOAuth2Config.class,
