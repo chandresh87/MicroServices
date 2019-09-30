@@ -1,8 +1,6 @@
-
-
 buildscript {
 	ext {
-		springBootVersion = '2.1.7.RELEASE'
+		springBootVersion = '2.1.2.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -32,11 +30,19 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	
+	//maven {
+	//url "http://oss.sonatype.org/content/repositories/snapshots/"
+	//content {
+            // this repository *only* contains artifacts with group "de.codecentric"
+      //      includeGroup "de.codecentric"
+    //    }
+	//}
 }
 
 
 ext {
-	set('springCloudVersion', "Greenwich.SR2")
+	set('springCloudVersion', "Greenwich.SR3")
 }
 /*sourceSets {
     mapStructGenerated {
@@ -125,6 +131,10 @@ compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.7.0'
 
 //spring cloud bus for config refresh
 compile  "org.springframework.cloud:spring-cloud-starter-bus-amqp"
+
+//chaos-monkey
+compile "de.codecentric:chaos-monkey-spring-boot:2.1.0"
+
 
 }
 

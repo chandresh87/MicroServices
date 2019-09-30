@@ -40,7 +40,7 @@ hystrix.metrics.rollingStats.timeInMilliseconds: 15000
 #The number of metrics buckets Hystrix will maintain within its monitoring window.
 hystrix.metrics.rollingStats.numBuckets: 5
 #hystrix timeout
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 31000
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 21000
 
 spring: 
    cloud:    
@@ -75,11 +75,20 @@ feign:
         enabled: true
         
 hystrix.shareSecurityContext: true
-                
+
+#hystrix timeout
+hystrix:
+  command:
+    OrganizationFeignClient#getOrganization(Integer):
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 21000
+            
 organizationService:
   ribbon:
     # Max number of retries on the same server (excluding the first try)
-    MaxAutoRetries: 3
+    MaxAutoRetries: 2
 
     # Max number of next servers to retry (excluding the first server)
     MaxAutoRetriesNextServer: 0
@@ -88,7 +97,7 @@ organizationService:
     OkToRetryOnAllOperations: true
 
     # Interval to refresh the server list from the source
-    #ServerListRefreshInterval: 2000
+    ServerListRefreshInterval: 2000
 
     # Connect timeout used by Apache HttpClient
     ConnectTimeout: 10000

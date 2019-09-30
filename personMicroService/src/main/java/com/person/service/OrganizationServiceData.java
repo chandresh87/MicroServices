@@ -10,7 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
+import org.springframework.stereotype.Service;
+
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.person.config.HytrixConfig;
@@ -23,12 +24,12 @@ import com.person.repository.OrganizationRedisRepository;
  * @author chandresh.mishra
  *
  */
-@Component
+//@Component
 /*@DefaultProperties(
 commandProperties= {
 		 @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="11000") // after 11 sec call will be timeout// default for whole class.
 })*/
-
+@Service
 public class OrganizationServiceData {
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrganizationServiceData.class);
@@ -70,10 +71,12 @@ public class OrganizationServiceData {
 		//randomlyRunLong();  // Testing circuit breaker
 		
 		//Get the value from the redis
+		logger.info("Get the value from the redis");
 		organizationDTO=orgRedisRepo.findOrganization(organizationId);
 		
 		if(organizationDTO==null)
 		{
+			logger.info("Get the value from the organization ms");
 			ResponseEntity<OrganizationDTO> reponse= organizationClient.getOrganization(organizationId);
 			 organizationDTO=reponse.getBody();
 			 logger.info("saving data in cache {}", organizationDTO);

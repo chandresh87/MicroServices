@@ -5,6 +5,7 @@ package com.person.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.person.entity.Person;
@@ -14,7 +15,7 @@ import com.person.repository.PersonRepository;
  * @author chandresh.mishra
  *
  */
-@Component
+@Service
 public class PersonServiceData {
 
 	@Autowired

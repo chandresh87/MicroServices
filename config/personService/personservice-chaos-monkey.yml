@@ -1,0 +1,26 @@
+chaos:
+    monkey:
+        enabled: true
+        watcher:
+            controller: false
+            restController: false
+            service: true
+            repository: true
+            component: false
+            
+        assaults:
+            level: 1
+            latencyActive: true
+            latencyRangeStart: 11000
+            latencyRangeEnd: 40000
+            
+management:
+    endpoint:
+        chaosmonkey:
+            enabled:true
+    
+    endpoints:
+        web:
+          exposure:
+            include: health,info,chaosmonkey    
+        
