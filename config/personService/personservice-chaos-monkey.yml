@@ -4,15 +4,16 @@ chaos:
         watcher:
             controller: false
             restController: false
-            service: true
-            repository: true
-            component: false
+            service: false
+            repository: false
+            component: true
             
         assaults:
             level: 1
             latencyActive: true
-            latencyRangeStart: 11000
+            latencyRangeStart: 22000
             latencyRangeEnd: 40000
+            watchedCustomServices: com.person.service.OrganizationRemoteData.getRemoteOrgData
             
 management:
     endpoint:
@@ -22,5 +23,5 @@ management:
     endpoints:
         web:
           exposure:
-            include: health,info,chaosmonkey    
+            include: health,info,chaosmonkey,hystrix.stream    
         

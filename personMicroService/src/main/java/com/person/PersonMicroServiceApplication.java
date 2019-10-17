@@ -26,7 +26,7 @@ import com.person.config.RedisConfig;
 @EnableHystrix
 @EnableResourceServer
 //@EnableBinding(Source.class)
-@Import({ DBConfig.class,RedisConfig.class })
+@Import({ DBConfig.class,RedisConfig.class})
 
 public class PersonMicroServiceApplication {
 

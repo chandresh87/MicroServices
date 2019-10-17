@@ -1,0 +1,16 @@
+plugins {
+  id "com.github.lkishalmi.gatling" version "3.2.1"
+}
+
+apply plugin: 'scala'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+     compile 'org.scala-lang:scala-library:2.11.8'
+
+     compile group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: '3.2.1'
+}

@@ -1,9 +1,9 @@
 spring:
   application:
-    name: zuulservice
+    name: authService
   profiles:
     active:
-      default
+    - default
   cloud:
     config:
       uri: http://localhost:8888

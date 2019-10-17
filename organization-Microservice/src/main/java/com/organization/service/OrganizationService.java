@@ -39,9 +39,9 @@ public class OrganizationService {
 	
 	public OrganizationEntity fetchOrganization(Integer id)
 	{
-		logger.debug("Entering the fetchOrganization() method for id {} ",id);
+		logger.info("Entering the fetchOrganization() method for id {} ",id);
 		
-		randomlyRunLong(); //sleep for 3rd call
+		//randomlyRunLong(); //sleep for 3rd call
 		//sleep();  //sleep for every call
 		return repository.findById(id).get(); // should not call get directly.
 	}
@@ -50,11 +50,13 @@ public class OrganizationService {
 	private void randomlyRunLong(){
 		Random rand = new Random();
 		int randomNum = rand.nextInt((3 - 1) + 1) + 1;
-		if (randomNum==3) sleep();
+		if (randomNum==3) 
+			sleep();
 		}
 	
 private void sleep(){
 		try {
+		logger.info("Thread going to sleep fetchOrganization()");
 		Thread.sleep(12000);
 		} catch (InterruptedException e) {
 		e.printStackTrace();

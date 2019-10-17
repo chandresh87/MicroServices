@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.1.2.RELEASE'
+		springBootVersion = '2.1.7.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -42,7 +42,7 @@ repositories {
 
 
 ext {
-	set('springCloudVersion', "Greenwich.SR3")
+	set('springCloudVersion', "Greenwich.SR2")
 }
 /*sourceSets {
     mapStructGenerated {
@@ -70,7 +70,7 @@ configurations {
 dependencies {
 
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	//compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-web')
 	// Config server
 	compile('org.springframework.cloud:spring-cloud-starter-config')
 	compile('org.springframework.cloud:spring-cloud-config-client')
@@ -84,6 +84,8 @@ dependencies {
 	
 	//Hystrix
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard')
+	
 		
 	//Mysql
 	runtime('mysql:mysql-connector-java')
@@ -122,7 +124,10 @@ dependencies {
 compile group: 'commons-io', name: 'commons-io', version: '2.6'
 
 //Sleuth
-compile "org.springframework.cloud:spring-cloud-starter-sleuth"
+//compile "org.springframework.cloud:spring-cloud-starter-sleuth"
+//zipkin
+compile 'org.springframework.cloud:spring-cloud-starter-zipkin'
+
 
 //Redis   
 compile "org.springframework.data:spring-data-redis"
@@ -133,7 +138,7 @@ compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.7.0'
 compile  "org.springframework.cloud:spring-cloud-starter-bus-amqp"
 
 //chaos-monkey
-compile "de.codecentric:chaos-monkey-spring-boot:2.1.0"
+compile "de.codecentric:chaos-monkey-spring-boot:2.1.1"
 
 
 }

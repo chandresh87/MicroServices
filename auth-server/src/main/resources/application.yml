@@ -1,11 +1,8 @@
 server:
-  port: 5555
-
-  #Setting logging levels
-logging:
-    level:
-      com.netflix: WARN
-      org.springframework.web: WARN
+   port: 8901
+   
+signing:
+   key: 345345fsdfsf5345
 
 
 eureka:
@@ -21,14 +18,3 @@ eureka:
 discovery:
   user-name: eureka-user
   password: eureka-pass
-#
-#
-#  debug:
-#    request: true
-#
-#zuul:
-#  ignored-services: '*'
-#  prefix:  /api
-#  routes:
-#      personservice: /personservice/**
-#      organizationservice:  /orgservice/**

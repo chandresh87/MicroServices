@@ -13,6 +13,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
             http
                     .authorizeRequests()
                     .antMatchers("/actuator/**").permitAll()
+                    .antMatchers("/hystrix.stream/**").permitAll()
+                    .antMatchers("/hystrix/**").permitAll()
                     .antMatchers(HttpMethod.POST,"/**")
                     .hasRole("ADMIN")
                     .anyRequest()

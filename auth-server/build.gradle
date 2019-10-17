@@ -31,21 +31,8 @@ dependencies {
     testCompile 'org.springframework.security:spring-security-test'
 
 
-
-	//implementation('org.springframework.boot:spring-boot-starter-web')
-    //{ exclude group:'org.springframework.boot' , module:'spring-boot-starter-tomcat'
- // }
-	//compile('org.springframework.cloud:spring-cloud-starter-oauth2')
-	//compile "org.springframework.security:spring-security-jwt"
-	//compile "org.springframework.cloud:spring-cloud-security"
-	//compileOnly('org.projectlombok:lombok')
-	//compile ("javax.servlet:javax.servlet-api:3.1.0")
-	//testCompile('org.springframework.boot:spring-boot-starter-test')
-	
-	//compile "org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure"
-	//compile "org.springframework.security:spring-security-taglibs"
-	//compile "org.apache.tomcat.embed:tomcat-embed-jasper"
-	//compile "javax.servlet:jstl"
+	// Eureka
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
 }
 
 dependencyManagement {

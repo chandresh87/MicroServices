@@ -32,9 +32,8 @@ ext {
 }
 
 dependencies {
-	compile('org.springframework.cloud:spring-cloud-starter-zuul')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-zuul')
 	compileOnly('org.projectlombok:lombok')
-	compile "org.springframework.cloud:spring-cloud-starter-zuul"
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
 	compile "org.springframework.cloud:spring-cloud-starter-config"
 	compile "org.springframework.cloud:spring-cloud-config-client"
@@ -42,6 +41,12 @@ dependencies {
 	//compile('org.springframework.cloud:spring-cloud-starter-oauth2')
 	//compile "org.springframework.security:spring-security-jwt"
 	//compile "org.springframework.cloud:spring-cloud-security"
+	
+	compile "org.springframework.boot:spring-boot-starter-actuator"
+	//Sleuth
+	//compile "org.springframework.cloud:spring-cloud-starter-sleuth"
+	//zipkin
+	compile 'org.springframework.cloud:spring-cloud-starter-zipkin'
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

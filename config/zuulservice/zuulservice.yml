@@ -1,14 +1,16 @@
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 50000 
-hystrix.command.personservice.execution.isolation.thread.timeoutInMilliseconds: 50000 #default 1 sec
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 102000 #used by the zuul
+hystrix.command.personservice.execution.isolation.thread.timeoutInMilliseconds: 102000 #default 1 sec
 licensingservice.ribbon.ReadTimeout: 50000 #default 5 sec
+personservice.ribbon.ReadTimeout: 50000 #default 5 sec
+authservice.ribbon.ReadTimeout: 50000 #default 5 sec
 zuul.debug.request: true
 
 zuul:
-  ignored-services: '*'
+  #ignored-services: '*'  #ignore eureka generated routes 
   prefix:  /api
   routes:
-      personservice: /personservice/**
-      organizationservice:  /orgservice/**
+    personservice: /personservice/**
+    organizationservice:  /orgservice/**
   sensitiveHeaders: Cookie,Set-Cookie    
 
 
@@ -24,14 +26,23 @@ logging:
 
 eureka:
   instance:
-    preferIpAddress: true
+    prefer-ip-address: true # Register the IP of the service rather than the host name. preffered for the docker
   client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-        defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true # Trigger to tell the service to register itself with Eureka
+    fetchRegistry: true # Pull down a local copy of the registry
+    service-url:
+      defaultZone: http://${discovery.user-name}:${discovery.password}@localhost:8761/eureka/    #Location of the Eureka Service
+ 
+ 
+discovery:
+  user-name: eureka-user
+  password: eureka-pass 
         
-management.security.enabled: false      
+management.security.enabled: false    
+management.endpoints.web.exposure.include: info, health, routes  
+
+spring.sleuth.sampler.probability: 1.0  
+spring.zipkin.baseUrl: http://localhost:9411/
 
 security:
   oauth2:

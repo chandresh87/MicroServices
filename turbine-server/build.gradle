@@ -39,17 +39,17 @@ dependencies {
     
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
 	//Hystrix dashboard
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard'
+	compile 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard'
 	//Turbine
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-turbine'
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-turbine-stream'
+	compile 'org.springframework.cloud:spring-cloud-starter-netflix-turbine'
+	//implementation 'org.springframework.cloud:spring-cloud-starter-netflix-turbine-stream'
 	
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 docker {
-    maintainer = 'chandresh.mishra <chandresh.mishra@accenture.com>'
+    maintainer = 'chandresh.mishra <chandresh87@gmail.com>'
     
 }
 

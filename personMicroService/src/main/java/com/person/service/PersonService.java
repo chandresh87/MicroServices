@@ -4,6 +4,8 @@ package com.person.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import brave.Span;
 import brave.Tracer;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +33,7 @@ public class PersonService {
 	private PersonMapper personMapper;
 
 	@Autowired
-	private Tracer tracer;
-	
+	private OrganizationCachedData organizationCachedData;
 
 	// BO to Entity should be used but BO is not used just for simplification.
 	public void savePerson(Person person) {
@@ -46,15 +47,30 @@ public class PersonService {
 		// logger.debug("PersonService.getPerson Correlation id: {}",
 		// UserContextHolder.getContext().getCorrelationId());
 		logger.debug("Entering the getPerson() method for the nino: {} and id {} ", nino, id);
-		System.out.println(" Correlation id" + tracer.currentSpan().context().traceIdString());
-
+	
 		// person data from database
-		Person person = personServiceData.fetchPerson(nino);
-		logger.info("person data from db {}",person);
+		Person person = null;
+		person = personServiceData.fetchPerson(nino);
+
+		logger.info("person data from db {}", person);
 		PersonResponseModel personResponseModel = personMapper.personToPersonResponse(person);
 
+		OrganizationDTO organizationDTO=null;
+		// Get the value from the redis
+		organizationDTO = organizationCachedData.checkRedisCache(id);
+
+		if (organizationDTO == null) {
 		// Get org data from extenal resource
-		OrganizationDTO organizationDTO = organizationServiceData.getOrganizationData(id);
+		organizationDTO = organizationServiceData.getOrganizationData(id);
+		
+		}
+		
+		if(!organizationDTO.getOrganizationName().equals("Unknown"))
+		{
+			// saving data in redis
+			logger.info("saving data in cache {} by {}", organizationDTO,Thread.currentThread().getName());
+			organizationCachedData.cacheOrganizationObject(organizationDTO);
+		}
 
 		personResponseModel.setEmployerName(organizationDTO.getOrganizationName());
 		personResponseModel.setLocation(organizationDTO.getLocation());

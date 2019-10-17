@@ -1,3 +1,6 @@
+#spring.sleuth.sampler.probability: 1.0  
+#spring.zipkin.baseUrl: http://localhost:9411/
+   
 tracer.property: "I AM THE Default"
 success.message: Data saved succesfully.
 spring.jpa.database: "mysql"
@@ -11,7 +14,7 @@ spring.datasource.validationQuery: "SELECT 1"
 spring.jpa.hibernate.ddl-auto: update
 spring.jpa.generate-ddl: true
 
-#spring.datasource.url: "jdbc:mysql://192.168.1.65:3307/organizationmicroservice"
+#spring.datasource.url: "jdbc:mysql://100.120.56.176:3307/organizationmicroservice"
 spring.datasource.url: "jdbc:mysql://192.168.1.3:3307/organizationmicroservice"
 spring.datasource.username:  db_user
 #spring.datasource.password: "{cipher}b4d96af236cc7ae0f4e39ba2f23facecc0a191392a5476b4fd14a3e0ed60e0ea"
@@ -21,7 +24,7 @@ spring.database.driverClassName: com.mysql.jdbc.Driver
 
 
 spring: 
-   cloud:    
+    cloud:    
       stream:
         bindings:
           output:
@@ -40,3 +43,19 @@ spring:
                   username: guest
                   password: guest
                   virtual-host: /
+    zipkin:
+        enabled: true
+        service:
+            name: organizationService
+        sender:
+            type: web
+        base-url: http://localhost:9411
+    sleuth:
+        enabled: true
+        sampler:
+            probability: 1.0
+            
+management.endpoint.chaosmonkey.enabled: true
+
+# include specific endpoints
+management.endpoints.web.exposure.include: health,info,chaosmonkey,hystrix.stream                  
