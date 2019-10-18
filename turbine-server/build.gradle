@@ -21,7 +21,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
 //apply plugin: 'application'
 //mainClassName = 'com.turbine.TurbineServerApplication'
-group = 'com.microservicePlayground'
+group = 'microservice'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 

@@ -24,7 +24,7 @@ apply plugin: 'docker'
 //apply plugin: 'application'
 //mainClassName = 'com.person.PersonMicroServiceApplication'
 
-group = 'com.microservicePlayground'
+group = 'microservice'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 

@@ -24,7 +24,7 @@ plugins {
 apply plugin: 'eclipse'
 apply plugin: 'docker'
 
-group = 'com.microservicePlayground'
+group = 'microservice'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
