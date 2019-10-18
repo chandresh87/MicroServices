@@ -48,7 +48,7 @@ docker {
 task buildDocker(type: Docker, dependsOn: build) {
   //push = true
   applicationName = 'eurekaservice'
-  tagVersion = '1.0'
+  tagVersion = '${env.BUILD_NAME}'
   dockerfile = file("${buildDir}/docker/Dockerfile")
   doFirst {
     copy {
