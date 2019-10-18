@@ -7,6 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'se.transmode.gradle:gradle-docker:1.2'
 	}
 }
 
@@ -17,6 +18,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
 
 group = 'com.microservicePlayground'
 version = '0.0.1-SNAPSHOT'
@@ -49,6 +51,26 @@ dependencies {
 	compile 'org.springframework.cloud:spring-cloud-starter-zipkin'
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+
+docker {
+    maintainer = 'chandresh.mishra <chandresh87@gmail.com>' 
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+  //push = true
+  applicationName = 'zuul-server'
+  tagVersion = '1.0'
+  dockerfile = file("${buildDir}/docker/Dockerfile")
+  doFirst {
+    copy {
+      from jar
+      into stageDir
+      from "src/main/docker/"
+      into "${buildDir}/docker"
+    }
+  }
 }
 
 dependencyManagement {

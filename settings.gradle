@@ -1,0 +1,9 @@
+rootProject.name = 'microservices-world'
+
+include 'eureka-server'
+include 'config-service'
+include 'auth-server'
+include 'organization-Microservice'
+include 'personMicroService'
+include 'turbine-server'
+include 'zuul-server'
