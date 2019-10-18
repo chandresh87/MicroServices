@@ -16,4 +16,4 @@ echo "*******  Configuration Server has started"
 echo "********************************************************"
 echo "Starting Authentication Service                           "
 echo "********************************************************"
-java -Dserver.port=$SERVER_PORT -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI -Dspring.cloud.config.uri=$CONFIGSERVER_URI -Dspring.profiles.active=$PROFILE -jar /usr/local/authenticationservice/auth.server-0.0.1-SNAPSHOT.jar
+java -Dserver.port=$SERVER_PORT -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI -Dspring.cloud.config.uri=$CONFIGSERVER_URI -Dspring.profiles.active=$PROFILE -jar /usr/local/authenticationservice/auth-server-0.0.1-SNAPSHOT.jar
