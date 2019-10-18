@@ -9,7 +9,7 @@ services:
 - docker
 notifications:
   email:
-  - chandresh87@@gmail.com
+  - chandresh87@gmail.com
   on_success: always
   on_failure: always
 branches:
@@ -20,7 +20,9 @@ before_install:
 - export BUILD_NAME=final-$TRAVIS_BRANCH-$(date -u "+%Y%m%d%H%M%S")-$TRAVIS_BUILD_NUMBER
 script:
 - sh travis_scripts/tag_build.sh
+- stage: Build
 - sh travis_scripts/build_services.sh
+- stage: push to docker hub
 - sh travis_scripts/deploy_to_docker_hub.sh
 env:
   global:
