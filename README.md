@@ -12,3 +12,4 @@ Using Spring Cloud to develop microservices application.
 * Distributed tracing: Sleuth, Zipkin
 * Distrubuted caching: Redis , RabbitMQ
 * Authentication: OAuth2 , spring security, JWT
+* Container: Docker
