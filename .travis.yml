@@ -20,10 +20,9 @@ before_install:
 - export BUILD_NAME=final-$TRAVIS_BRANCH-$(date -u "+%Y%m%d%H%M%S")-$TRAVIS_BUILD_NUMBER
 script:
 - sh travis_scripts/tag_build.sh
-- stage: Build
 - sh travis_scripts/build_services.sh
-- stage: push to docker hub
 - sh travis_scripts/deploy_to_docker_hub.sh
+
 env:
   global:
   - secure: Yf12SleSaz9jIEyef/ZG6FSGdylNZloUVcWFvQEMjsDNTtiLfZGEnu05ZzfObGupETo9vNeDxHdXQ/iDWu7wHzdh17y0opD9VnZqWqVp4wv7kkxVYMAAHUkLCj4Wd4ooWWK/R5RSL7GDflp5uGl6fTwDf1+DBHxNOyOF79ggSGGMbYbQo74ggrbD9JgunXU9OfwvDH8K1kRO8eVbX+MxaUX/W88aX+EmYPxNiLwCklIWXR00xZg2L7MwTdHyEmb35zpLDfsYir+oieluwumLbMhKsLnEATp7R7OVxp9yTUQgX3RvT0WjqMvQPb5y1hwVX0uP1QUVGlp2oOKdnzdMnQrj0Lm5Q9wsnCLMPuMGcwcVnJWi0M0lJU/KpODn40gs4b9Pm25uYRmzn6BqnlzOnPglT3qVvaQYCrDABEOHNELFhVLag1bAWZeG7rXwUb/P/tly4awzlee2oA23YjMcZGnMyUP55XOZZnxyU6VcorUAllULF7M4LayWbnPj1Nsehv1MKZHcSvorlF9EhvkXeyjr0lyZOKqnMESKQvS5eSJJZPjvX9PBqx3sYbL52IIdnJuN28FMxGzsWBVnNK3QWReCCuFT/4J262xri/f/C8bPWNPFhEqsxi8P1HageDKHAm9HUYm+WE+t9MpAvx6V+Ge43WMTmuYurPUGREt85Fs=
