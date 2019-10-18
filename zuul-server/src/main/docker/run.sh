@@ -26,4 +26,4 @@ java -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT   \
      -Dspring.cloud.config.uri=$CONFIGSERVER_URI                \
      -Dspring.profiles.active=$PROFILE                          \
       -Dspring.zipkin.baseUrl=$ZIPKIN_URI                       \
-     -jar /usr/local/zuulservice/@project.build.finalName@.jar
+     -jar /usr/local/zuulservice/zuul-server-0.0.1-SNAPSHOT.jar

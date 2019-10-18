@@ -1,11 +1,28 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.7.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'se.transmode.gradle:gradle-docker:1.2'
+		 classpath "com.commercehub.gradle.plugin:gradle-avro-plugin:0.9.1"
+	}
+}
+
+
 plugins {
   id 'org.springframework.boot' version '2.1.8.RELEASE'
   id 'io.spring.dependency-management' version '1.0.8.RELEASE'
   id 'java'
+ 
 }
 
 apply plugin: 'eclipse'
-
+apply plugin: 'docker'
 
 group = 'com.microservicePlayground'
 version = '0.0.1-SNAPSHOT'
@@ -33,6 +50,25 @@ dependencies {
 
 	// Eureka
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+}
+
+docker {
+    maintainer = 'chandresh.mishra <chandresh87@gmail.com>'
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+  //push = true
+  applicationName = 'auth-server'
+  tagVersion = '1.0'
+  dockerfile = file("${buildDir}/docker/Dockerfile")
+  doFirst {
+    copy {
+      from jar
+      into stageDir
+      from "src/main/docker/"
+      into "${buildDir}/docker"
+    }
+  }
 }
 
 dependencyManagement {
