@@ -56,7 +56,7 @@ docker {
 task buildDocker(type: Docker, dependsOn: build) {
   //push = true
   applicationName = 'turbinemicroservice'
-  tagVersion = '${env.BUILD_NAME}'
+  tagVersion = '1.0'
   dockerfile = file("${buildDir}/docker/Dockerfile")
   doFirst {
     copy {
