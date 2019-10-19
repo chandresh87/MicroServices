@@ -1,3 +1,7 @@
+APP_CONFIG_DIR1: ///D://Data//Study//MicroServices//config//personService
+APP_CONFIG_DIR2: ///D://Data//Study//MicroServices//config//organizationservice
+APP_CONFIG_DIR3: ///D://Data//Study//MicroServices//config//zuulservice
+
 server:
   port: 8888
   
@@ -10,9 +14,7 @@ spring:
         enabled: false
       server:
         native:   
-          searchLocations: file:///D://Data//Study//MicroServices//config//personService,
-                           file:///D://Data//Study//MicroServices//config//organizationservice, 
-                           file:///D://Data//Study//MicroServices//config//zuulservice 
+          searchLocations: file:${APP_CONFIG_DIR1}, file:${APP_CONFIG_DIR2}, file:${APP_CONFIG_DIR3}
           #searchLocations: classpath:config/personService,classpath:config/organizationService,classpath:config/zuulservice
         #git:
           #uri: git@github.com:chandresh87/config-server.git

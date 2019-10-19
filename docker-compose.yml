@@ -29,10 +29,13 @@ services:
        - "eurekaserver:eurekaserver"
        - "rabbitmq:rabbitmq"
     volumes:
-      - /config/personService
-      - /config/organizationservice
-      - /config/organizationservice
+      - $APP_CONFIG_DIR1: /config/personService
+      - $APP_CONFIG_DIR2: /config/organizationservice
+      - $APP_CONFIG_DIR3: /config/zuulservice
     environment:
+      APP_CONFIG_DIR1: /config/personService
+      APP_CONFIG_DIR2: /config/organizationservice
+      APP_CONFIG_DIR3: /config/zuulservice
       EUREKA_USERNAME: "eureka-user"
       EUREKA_PASSWORD: "eureka-password"
       EUREKASERVER_URI: "http://eureka-user:eureka-password@eurekaserver:8761/eureka/"
