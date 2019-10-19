@@ -11,7 +11,7 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
       
   eurekaserver:
-    image: chandreshmishra/eurekaservice:latest
+    image: chandreshmishra/eurekaservice:${BUILD_NAME}
     ports:
        - "8761:8761"
     environment:
@@ -19,19 +19,27 @@ services:
        EUREKA_PASSWORD: "eureka-password"
        
   configserver:
-    image: com.microservicePlayground/configservice:latest
+    image: chandreshmishra/configservice:${BUILD_NAME}
     depends_on:
       - rabbitmq
+      - eurekaserver
     ports:
        - "8888:8888" 
     links:
        - "eurekaserver:eurekaserver"
        - "rabbitmq:rabbitmq"
+    volumes:
+      - /config/personService
+      - /config/organizationservice
+      - /config/organizationservice
     environment:
       EUREKA_USERNAME: "eureka-user"
       EUREKA_PASSWORD: "eureka-password"
-      EUREKASERVER_URI: "http://EUREKA_USERNAME:EUREKA_PASSWORD@eurekaserver:8761/eureka/"
+      EUREKASERVER_URI: "http://eureka-user:eureka-password@eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: 8761
       RABBITMQ_SERVICE_HOST: rabbitmq
       RABBITMQ_SERVICE_PORT: 5672
       RABBITMQ_SERVICE_USERNAME: guest
       RABBITMQ_SERVICE_PASSWORD: guest
+      CONFIG_USERNAME: config-user
+      CONFIG_PASSOWRD: config-pass
