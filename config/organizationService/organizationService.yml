@@ -1,3 +1,7 @@
+RABBITMQ_SERVICE_HOST: localhost
+RABBITMQ_SERVICE_PORT: 5672
+RABBITMQ_SERVICE_USERNAME: guest
+RABBITMQ_SERVICE_PASSWORD: guest
 #spring.sleuth.sampler.probability: 1.0  
 #spring.zipkin.baseUrl: http://localhost:9411/
    
@@ -38,11 +42,11 @@ spring:
             environment:
               spring:
                 rabbitmq:
-                  host: localhost
-                  port: 5672
-                  username: guest
-                  password: guest
-                  virtual-host: /
+                    host: ${RABBITMQ_SERVICE_HOST}
+                    port:  ${RABBITMQ_SERVICE_PORT}
+                    username: ${RABBITMQ_SERVICE_USERNAME}
+                    password: ${RABBITMQ_SERVICE_PASSWORD}
+                    virtual-host: /
     zipkin:
         enabled: true
         service:

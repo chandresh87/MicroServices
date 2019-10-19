@@ -25,5 +25,7 @@ java -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT   \
      -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI   \
      -Dspring.cloud.config.uri=$CONFIGSERVER_URI                \
      -Dspring.profiles.active=$PROFILE                          \
-      -Dspring.zipkin.baseUrl=$ZIPKIN_URI                       \
+     -Dspring.zipkin.baseUrl=$ZIPKIN_URI                       \
+     -Dspring.cloud.config.username=$CONFIG_USERNAME               \
+     -Dspring.cloud.config.password=$CONFIG_PASSOWRD               \
      -jar /usr/local/zuulservice/zuul-server-0.0.1-SNAPSHOT.jar

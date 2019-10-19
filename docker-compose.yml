@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.2'
 services:
 
   rabbitmq:
@@ -9,7 +9,12 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
-      
+   
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+
   eurekaserver:
     image: chandreshmishra/eurekaservice:${BUILD_NAME}
     ports:
@@ -29,13 +34,13 @@ services:
        - "eurekaserver:eurekaserver"
        - "rabbitmq:rabbitmq"
     volumes:
-      - $APP_CONFIG_DIR1: /config/personService
-      - $APP_CONFIG_DIR2: /config/organizationservice
-      - $APP_CONFIG_DIR3: /config/zuulservice
-    environment:
-      APP_CONFIG_DIR1: /config/personService
-      APP_CONFIG_DIR2: /config/organizationservice
-      APP_CONFIG_DIR3: /config/zuulservice
+        - type: bind
+          source: /d/Data/Study/MicroServices/config/
+          target: /data
+    environment:    
+      APP_CONFIG_DIR1: /data/personService
+      APP_CONFIG_DIR2: /data/organizationservice
+      APP_CONFIG_DIR3: /data/zuulservice
       EUREKA_USERNAME: "eureka-user"
       EUREKA_PASSWORD: "eureka-password"
       EUREKASERVER_URI: "http://eureka-user:eureka-password@eurekaserver:8761/eureka/"
@@ -46,3 +51,129 @@ services:
       RABBITMQ_SERVICE_PASSWORD: guest
       CONFIG_USERNAME: config-user
       CONFIG_PASSOWRD: config-pass
+   
+  zuulserver:
+    image: chandreshmishra/zuul-server:${BUILD_NAME}
+    depends_on:
+      - eurekaserver
+      - configserver
+      - zipkin
+    ports:
+      - "5555:5555"
+    links:
+      - "eurekaserver:eurekaserver"
+      - "configserver:configserver"
+      - "zipkin:zipkin"
+  
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "5555"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eureka-user:eureka-password@eurekaserver:8761/eureka/"
+      ZIPKIN_URI: "http://zipkin:9411"
+      EUREKASERVER_PORT: 8761
+      CONFIGSERVER_PORT: 8888
+      ZIPKIN_PORT: 9411
+      CONFIG_USERNAME: config-user
+      CONFIG_PASSOWRD: config-pass
+      
+  authenticationservice:
+    image: chandreshmishra/auth-server:${BUILD_NAME}
+    depends_on:
+      - eurekaserver
+      - configserver
+    ports:
+      - "8901:8901"
+    links:
+      - "configserver:configserver"
+      - "eurekaserver:eurekaserver"
+      - "zuulserver:zuulserver"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8901"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eureka-user:eureka-password@eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: 8761
+      CONFIGSERVER_PORT: 8888
+      CONFIG_USERNAME: config-user
+      CONFIG_PASSOWRD: config-pass
+      
+  personservice:
+    image: chandreshmishra/personmicroservice:${BUILD_NAME}
+    depends_on:
+      - eurekaserver
+      - configserver
+      - zipkin
+      - rabbitmq
+    ports:
+      - "8080:8080"
+    links:
+      - "configserver:configserver"
+      - "eurekaserver:eurekaserver"
+      - "zuulserver:zuulserver"
+      - "rabbitmq:rabbitmq"
+      - "zipkin:zipkin"
+    environment:
+        PROFILE: "dev,chaos-monkey"
+        SERVER_PORT: "8080"
+        CONFIGSERVER_URI: "http://configserver:8888"
+        EUREKASERVER_URI: "http://eureka-user:eureka-password@eurekaserver:8761/eureka/"
+        ZIPKIN_URI: "http://zipkin:9411"
+        EUREKASERVER_PORT: 8761
+        CONFIGSERVER_PORT: 8888
+        ZIPKIN_PORT: 9411
+        CONFIG_USERNAME: config-user
+        CONFIG_PASSOWRD: config-pass
+        RABBITMQ_SERVICE_HOST: rabbitmq
+        RABBITMQ_SERVICE_PORT: 5672
+        RABBITMQ_SERVICE_USERNAME: guest
+        RABBITMQ_SERVICE_PASSWORD: guest
+        
+  organizationservice:
+    image: chandreshmishra/organizationmicroservice:${BUILD_NAME}
+    depends_on:
+      - eurekaserver
+      - configserver
+      - zipkin
+      - rabbitmq
+    ports:
+       - "8085:8085"
+    links:
+      - "configserver:configserver"
+      - "eurekaserver:eurekaserver"
+      - "zuulserver:zuulserver"
+      - "rabbitmq:rabbitmq"
+      - "zipkin:zipkin"
+    environment:
+        PROFILE: "default"
+        SERVER_PORT: "8085"
+        CONFIGSERVER_URI: "http://configserver:8888"
+        EUREKASERVER_URI: "http://eureka-user:eureka-password@eurekaserver:8761/eureka/"
+        ZIPKIN_URI: "http://zipkin:9411"
+        EUREKASERVER_PORT: 8761
+        CONFIGSERVER_PORT: 8888
+        ZIPKIN_PORT: 9411
+        CONFIG_USERNAME: config-user
+        CONFIG_PASSOWRD: config-pass
+        RABBITMQ_SERVICE_HOST: rabbitmq
+        RABBITMQ_SERVICE_PORT: 5672
+        RABBITMQ_SERVICE_USERNAME: guest
+        RABBITMQ_SERVICE_PASSWORD: guest
+        
+  turbine-server:
+    image: chandreshmishra/turbinemicroservice:${BUILD_NAME}
+    depends_on:
+      - eurekaserver
+      - personservice
+    ports:
+      - "8989:8989"
+    links:
+      - "configserver:configserver"
+      - "eurekaserver:eurekaserver"  
+    environment:
+        PROFILE: "default"
+        SERVER_PORT: "8989"
+        CONFIGSERVER_URI: "http://configserver:8888"
+        EUREKASERVER_URI: "http://eureka-user:eureka-password@eurekaserver:8761/eureka/"
+        EUREKASERVER_PORT: 8761
+        CONFIGSERVER_PORT: 8888       
