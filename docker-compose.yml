@@ -1,83 +1,37 @@
 version: '2.1'
 services:
-    
+
   rabbitmq:
-     image: "rabbitmq:3-management"
-     ports:
+    image: rabbitmq:3-management
+    ports:
       - "5672:5672"
       - "15672:15672"
-      - "5673:5673"
-     volumes:
-      - "rabbitmq_data"
-
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      
   eurekaserver:
-     image: com.microservicePlayground/eurekaservice:1.0
-     ports:
+    image: chandreshmishra/eurekaservice:latest
+    ports:
        - "8761:8761"
-     depends_on:
-        - rabbitmq
+    environment:
+       EUREKA_USERNAME: "eureka-user"
+       EUREKA_PASSWORD: "eureka-password"
        
   configserver:
-    image: com.microservicePlayground/configservice:1.0
+    image: com.microservicePlayground/configservice:latest
+    depends_on:
+      - rabbitmq
     ports:
-       - "8888:8888"
+       - "8888:8888" 
+    links:
+       - "eurekaserver:eurekaserver"
+       - "rabbitmq:rabbitmq"
     environment:
-      ENCRYPT_KEY: "IMSYMMETRIC"
-      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      EUREKASERVER_PORT: "8761"
-   
-    
-  personservice:
-    image: com.microservicePlayground/personmicroservice:1.0
-    ports:
-      - "8080:8080"
-    environment:
-        PROFILE: "dev"
-        SERVER_PORT: "8080"
-        CONFIGSERVER_URI: "http://configserver:8888"
-        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-        EUREKASERVER_PORT:   "8761"
-        CONFIGSERVER_PORT:   "8888"
-        ENCRYPT_KEY:       "IMSYMMETRIC"
-
-   
-  organizationservice:
-    image: com.microservicePlayground/organizationmicroservice:1.0
-    ports:
-       - "8085:8085"
-    environment:
-        PROFILE: "default"
-        SERVER_PORT: "8085"
-        CONFIGSERVER_URI: "http://configserver:8888"
-        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-        EUREKASERVER_PORT:   "8761"
-        CONFIGSERVER_PORT:   "8888"
-        ENCRYPT_KEY:       "IMSYMMETRIC"
-        
-        
-  organizationservice2:
-    
-    image: com.microservicePlayground/organizationmicroservice:1.0
-    ports:
-        - "8086:8086"
-    environment:
-        PROFILE: "default"
-        SERVER_PORT: "8085"
-        CONFIGSERVER_URI: "http://configserver:8888"
-        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-        EUREKASERVER_PORT:   "8761"
-        CONFIGSERVER_PORT:   "8888"
-        ENCRYPT_KEY:       "IMSYMMETRIC"
-        
-  turbineservice:
-    image: com.microservicePlayground/turbinemicroservice:1.0
-    ports:
-      - "8989:8989"
-    environment:
-        PROFILE: "default"
-        SERVER_PORT: "8989"
-        CONFIGSERVER_URI: "http://configserver:8888"
-        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-        EUREKASERVER_PORT:   "8761"
-        CONFIGSERVER_PORT:   "8888"
-        ENCRYPT_KEY:       "IMSYMMETRIC"      
+      EUREKA_USERNAME: "eureka-user"
+      EUREKA_PASSWORD: "eureka-password"
+      EUREKASERVER_URI: "http://EUREKA_USERNAME:EUREKA_PASSWORD@eurekaserver:8761/eureka/"
+      RABBITMQ_SERVICE_HOST: rabbitmq
+      RABBITMQ_SERVICE_PORT: 5672
+      RABBITMQ_SERVICE_USERNAME: guest
+      RABBITMQ_SERVICE_PASSWORD: guest

@@ -1,3 +1,8 @@
+RABBITMQ_SERVICE_HOST: localhost
+RABBITMQ_SERVICE_PORT: 5672
+RABBITMQ_SERVICE_USERNAME: guest
+RABBITMQ_SERVICE_PASSWORD: guest
+
 eureka:
   instance:
     prefer-ip-address: true  #add ip address inplace of host name
@@ -11,12 +16,14 @@ eureka:
 
 spring:
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_SERVICE_HOST}
+    port:  ${RABBITMQ_SERVICE_PORT}
+    username: ${RABBITMQ_SERVICE_USERNAME}
+    password: ${RABBITMQ_SERVICE_PASSWORD}
     virtual-host: /
     
 discovery:
   user-name: eureka-user
   password: eureka-pass
+  
+  

@@ -10,4 +10,4 @@ echo ">>>>>>>>>>>> Eureka Server has started"
 echo "********************************************************"
 echo "Starting Configuration Server"
 echo "********************************************************"
-java -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI -jar /usr/local/configserver/config-service-0.0.1-SNAPSHOT.jar
+java -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI -Dspring.security.user.name=$CONFIG_USERNAME  -Dspring.security.user.password=$CONFIG_PASSOWRD -jar /usr/local/configserver/config-service-0.0.1-SNAPSHOT.jar
