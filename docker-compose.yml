@@ -12,6 +12,7 @@ services:
    
   zipkin:
     image: openzipkin/zipkin
+    
     ports:
       - "9411:9411"
 
@@ -22,6 +23,7 @@ services:
     environment:
        EUREKA_USERNAME: "eureka-user"
        EUREKA_PASSWORD: "eureka-password"
+       EUREKASERVER_URI: "http://eureka-user:eureka-password@eurekaserver:8761/eureka/"
        
   configserver:
     image: chandreshmishra/configservice:${BUILD_NAME}
