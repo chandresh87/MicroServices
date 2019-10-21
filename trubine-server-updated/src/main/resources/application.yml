@@ -1,0 +1,16 @@
+server:
+   port: 8989
+
+
+turbine:
+  aggregator:
+    clusterConfig: PERSONSERVICE
+  appConfig: personservice
+
+#turbine:
+#  aggregator:
+#    clusterConfig: tpi-store
+#  clusterNameExpression: 'default'
+#  appConfig: tpi-store
+#  instanceUrlSuffix: :9600/actuator/hystrix.stream
+#  ConfigPropertyBasedDiscovery.default.instances: localhost

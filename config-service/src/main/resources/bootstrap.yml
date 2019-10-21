@@ -13,11 +13,12 @@ spring:
       discovery:
         enabled: false
       server:
-        native:   
-          searchLocations: file:${APP_CONFIG_DIR1}, file:${APP_CONFIG_DIR2}, file:${APP_CONFIG_DIR3}
+        #native:   
+          #searchLocations: file:${APP_CONFIG_DIR1}, file:${APP_CONFIG_DIR2}, file:${APP_CONFIG_DIR3}
           #searchLocations: classpath:config/personService,classpath:config/organizationService,classpath:config/zuulservice
-        #git:
-          #uri: git@github.com:chandresh87/config-server.git
+        git:
+          uri: https://github.com/chandresh87/config-server
+          searchPaths: organizationservice,personservice,zuulservice
           #ignore-local-ssh-settings: true
           #hostKeyAlgorithm: ssh-rsa
           #hostKey: AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzf

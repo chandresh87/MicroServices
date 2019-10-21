@@ -1,6 +1,7 @@
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 102000 #used by the zuul
 hystrix.command.personservice.execution.isolation.thread.timeoutInMilliseconds: 102000 #default 1 sec
-licensingservice.ribbon.ReadTimeout: 50000 #default 5 sec
+hystrix.command.organizationservice.execution.isolation.thread.timeoutInMilliseconds: 102000 #default 1 sec
+organizationservice.ribbon.ReadTimeout: 50000 #default 5 sec
 personservice.ribbon.ReadTimeout: 50000 #default 5 sec
 authservice.ribbon.ReadTimeout: 50000 #default 5 sec
 zuul.debug.request: true

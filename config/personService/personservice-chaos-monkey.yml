@@ -1,6 +1,6 @@
 chaos:
     monkey:
-        enabled: true
+        enabled: false
         watcher:
             controller: false
             restController: false
@@ -23,5 +23,5 @@ management:
     endpoints:
         web:
           exposure:
-            include: health,info,chaosmonkey,hystrix.stream    
-        
+            include: "*"   
+            #health,info,chaosmonkey,hystrix.stream 

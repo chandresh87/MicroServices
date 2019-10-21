@@ -5,5 +5,7 @@ include 'config-service'
 include 'auth-server'
 include 'organization-Microservice'
 include 'personMicroService'
-include 'turbine-server'
+include 'trubine-server-updated'
 include 'zuul-server'
+include 'spring-boot-admin'
+
