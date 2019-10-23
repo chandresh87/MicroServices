@@ -19,6 +19,8 @@ spring:
         git:
           uri: https://github.com/chandresh87/config-server
           searchPaths: organizationservice,personservice,zuulservice
+          username: chandresh87
+          password: Chandmishra87@y
           #ignore-local-ssh-settings: true
           #hostKeyAlgorithm: ssh-rsa
           #hostKey: AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzf
