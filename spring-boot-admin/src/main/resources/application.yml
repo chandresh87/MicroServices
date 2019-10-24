@@ -1,0 +1,26 @@
+server:
+  port: 7777
+
+
+eureka:
+  instance:
+    prefer-ip-address: true  #add ip address inplace of host name
+  client:
+    register-with-eureka: true
+    fetch-registry: true # fetches the registry information from the server and caches it locally.
+    service-url:
+      defaultZone: http://${discovery.user-name}:${discovery.password}@localhost:8761/eureka/
+      
+discovery:
+  user-name: eureka-user
+  password: eureka-pass
+
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
