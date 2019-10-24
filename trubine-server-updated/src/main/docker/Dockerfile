@@ -1,7 +1,7 @@
 FROM openjdk:8-jdk-alpine
 RUN  apk update && apk upgrade && apk add netcat-openbsd
 RUN mkdir -p /usr/local/turbineService
-ADD turbine-server-0.0.1-SNAPSHOT.jar /usr/local/turbineService/
+ADD trubine-server-updated-0.0.1-SNAPSHOT.jar /usr/local/turbineService/
 ADD run.sh run.sh
 RUN sed -i 's/\r$//' run.sh 
 RUN chmod +x run.sh

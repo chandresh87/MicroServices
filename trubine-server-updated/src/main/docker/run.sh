@@ -20,4 +20,6 @@ echo ">>>>>>>>>>>> Configuration Server has started"
 echo "********************************************************"
 echo "Starting turbine Server with Configuration Service via Eureka :  $EUREKASERVER_URI" ON PORT: $SERVER_PORT;
 echo "********************************************************"
-java -Dserver.port=$SERVER_PORT -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI  -Dspring.profiles.active=$PROFILE -jar /usr/local/turbineService/turbine-server-0.0.1-SNAPSHOT.jar
+
+java -Dserver.port=$SERVER_PORT -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI  -Dspring.profiles.active=$PROFILE -jar /usr/local/turbineService/trubine-server-updated-0.0.1-SNAPSHOT.jar
+

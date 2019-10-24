@@ -38,6 +38,27 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+
+docker {
+    maintainer = 'chandresh.mishra <chandresh87@gmail.com>'
+    
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+  //push = true
+  applicationName = 'turbinemicroservice'
+  tagVersion = '1.0'
+  dockerfile = file("${buildDir}/docker/Dockerfile")
+  doFirst {
+    copy {
+      from jar
+      into stageDir
+      from "src/main/docker/"
+      into "${buildDir}/docker"
+    }
+  }
+}
+
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"

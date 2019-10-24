@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3'
 services:
 
   rabbitmq:
@@ -27,18 +27,11 @@ services:
        
   configserver:
     image: chandreshmishra/configservice:${BUILD_NAME}
-    depends_on:
-      - rabbitmq
-      - eurekaserver
     ports:
        - "8888:8888" 
     links:
        - "eurekaserver:eurekaserver"
        - "rabbitmq:rabbitmq"
-    volumes:
-        - type: bind
-          source: /d/Data/Study/MicroServices/config/
-          target: /data
     environment:    
       APP_CONFIG_DIR1: /data/personService
       APP_CONFIG_DIR2: /data/organizationservice
@@ -56,10 +49,6 @@ services:
    
   zuulserver:
     image: chandreshmishra/zuul-server:${BUILD_NAME}
-    depends_on:
-      - eurekaserver
-      - configserver
-      - zipkin
     ports:
       - "5555:5555"
     links:
@@ -81,9 +70,6 @@ services:
       
   authenticationservice:
     image: chandreshmishra/auth-server:${BUILD_NAME}
-    depends_on:
-      - eurekaserver
-      - configserver
     ports:
       - "8901:8901"
     links:
@@ -102,11 +88,6 @@ services:
       
   personservice:
     image: chandreshmishra/personmicroservice:${BUILD_NAME}
-    depends_on:
-      - eurekaserver
-      - configserver
-      - zipkin
-      - rabbitmq
     ports:
       - "8080:8080"
     links:
@@ -133,11 +114,6 @@ services:
         
   organizationservice:
     image: chandreshmishra/organizationmicroservice:${BUILD_NAME}
-    depends_on:
-      - eurekaserver
-      - configserver
-      - zipkin
-      - rabbitmq
     ports:
        - "8085:8085"
     links:
@@ -164,9 +140,6 @@ services:
         
   turbine-server:
     image: chandreshmishra/turbinemicroservice:${BUILD_NAME}
-    depends_on:
-      - eurekaserver
-      - personservice
     ports:
       - "8989:8989"
     links:
@@ -178,4 +151,10 @@ services:
         CONFIGSERVER_URI: "http://configserver:8888"
         EUREKASERVER_URI: "http://eureka-user:eureka-password@eurekaserver:8761/eureka/"
         EUREKASERVER_PORT: 8761
-        CONFIGSERVER_PORT: 8888       
+        CONFIGSERVER_PORT: 8888
+        
+  logspout:
+    image: gliderlabs/logspout
+    command: syslog://logs6.papertrailapp.com
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
