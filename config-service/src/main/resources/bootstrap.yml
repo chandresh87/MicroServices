@@ -2,6 +2,7 @@ APP_CONFIG_DIR1: ///D://Data//Study//MicroServices//config//personService
 APP_CONFIG_DIR2: ///D://Data//Study//MicroServices//config//organizationservice
 APP_CONFIG_DIR3: ///D://Data//Study//MicroServices//config//zuulservice
 
+
 server:
   port: 8888
   
@@ -19,8 +20,8 @@ spring:
         git:
           uri: https://github.com/chandresh87/config-server
           searchPaths: organizationservice,personservice,zuulservice
-          username: chandresh87
-          password: Chandmishra87@y
+          username: ${GIT_USER}
+          password: ${GIT_PASS}
           #ignore-local-ssh-settings: true
           #hostKeyAlgorithm: ssh-rsa
           #hostKey: AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzf
