@@ -1,8 +1,8 @@
 APP_CONFIG_DIR1: ///D://Data//Study//MicroServices//config//personService
 APP_CONFIG_DIR2: ///D://Data//Study//MicroServices//config//organizationservice
 APP_CONFIG_DIR3: ///D://Data//Study//MicroServices//config//zuulservice
-GIT_USER: chandresh87
-GIT_PASS: Chandmishra87@y
+GIT_USER:
+GIT_PASS:
 
 server:
   port: 8888
