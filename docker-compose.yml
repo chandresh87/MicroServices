@@ -32,7 +32,9 @@ services:
     links:
        - "eurekaserver:eurekaserver"
        - "rabbitmq:rabbitmq"
-    environment:    
+    environment:
+      GIT_USER:
+      GIT_PASS:
       APP_CONFIG_DIR1: /data/personService
       APP_CONFIG_DIR2: /data/organizationservice
       APP_CONFIG_DIR3: /data/zuulservice
@@ -155,7 +157,7 @@ services:
         
   logspout:
     image: gliderlabs/logspout
-    command: syslog://logs6.papertrailapp.com
+    command: syslog://logs6.papertrailapp.com:36897
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       
