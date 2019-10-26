@@ -1,9 +1,24 @@
+
+buildscript {
+	ext {
+		springBootVersion = '2.1.9.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'se.transmode.gradle:gradle-docker:1.2'
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.1.9.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
 }
 
+apply plugin: 'docker'
 group = 'microservice'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -23,6 +38,26 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	compile "org.springframework.boot:spring-boot-starter-security"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+docker {
+    maintainer = 'chandresh.mishra <chandresh87@gmail.com>'
+    
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+  //push = true
+  applicationName = 'springbootadmin'
+  tagVersion = '1.0'
+  dockerfile = file("${buildDir}/docker/Dockerfile")
+  doFirst {
+    copy {
+      from jar
+      into stageDir
+      from "src/main/docker/"
+      into "${buildDir}/docker"
+    }
+  }
 }
 
 dependencyManagement {

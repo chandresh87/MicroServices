@@ -158,3 +158,20 @@ services:
     command: syslog://logs6.papertrailapp.com
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      
+  spring-boot-admin:
+    ports:
+      - "7777:7777"
+    links:
+      - "eurekaserver:eurekaserver"
+      - "configserver:configserver"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "7777"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eureka-user:eureka-password@eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: 8761
+      CONFIGSERVER_PORT: 8888
+      CONFIG_USERNAME: config-user
+      CONFIG_PASSOWRD: config-pass
+  
