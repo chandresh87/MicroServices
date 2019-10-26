@@ -15,4 +15,4 @@ Using Spring Cloud to develop microservices application.
 * Container: Docker
 
 # Stack and Request Flow
-![Screenshot](/common-config/Microservice_stack.jpg)
+![Screenshot](/common-config/Microservice_stack.JPG)
