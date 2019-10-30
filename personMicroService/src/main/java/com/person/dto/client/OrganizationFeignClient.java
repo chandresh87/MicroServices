@@ -14,7 +14,7 @@ import com.person.dto.OrganizationDTO;
  * @author chandresh.mishra
  *
  */
-@FeignClient(name = "organizationService", configuration = OrganizationClientConfig.class)
+@FeignClient(name = "organizationservice", configuration = OrganizationClientConfig.class)
 public interface OrganizationFeignClient {
 
 	@GetMapping(path = "/getOrganization/{id}", produces = "application/json")
