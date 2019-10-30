@@ -13,3 +13,6 @@ Using Spring Cloud to develop microservices application.
 * Distrubuted caching: Redis , RabbitMQ
 * Authentication: OAuth2 , spring security, JWT
 * Container: Docker
+
+# Stack and Request Flow
+![Screenshot](/common-config/Microservice_stack.JPG)
